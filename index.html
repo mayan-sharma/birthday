@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday ✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="mobile-enhancements.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+        
+        :root {
+            --primary: #2c2c2c;
+            --secondary: #f8f9fa;
+            --accent: #b8860b;
+            --gold: #daa520;
+            --deep-gold: #8b7355;
+            --text-light: #6b7280;
+            --glass: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'DM Sans', 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 100, 80, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(160, 140, 120, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(200, 180, 160, 0.05) 0%, transparent 50%),
+                linear-gradient(135deg, #fcfaf8 0%, #f8f5f0 25%, #f2ede6 50%, #ebe6dd 75%, #e4ddd4 100%);
+            color: var(--primary);
+            overflow-x: hidden;
+            letter-spacing: -0.01em;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .serif-elegant {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.4;
+        }
+        
+        .serif-display {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Elegant background with subtle movement */
+        .elegant-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #faf8f5 0%, #f0ede6 50%, #e8e3db 100%);
+            z-index: -1;
+        }
+        
+        .elegant-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 20%, rgba(184, 134, 11, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(218, 165, 32, 0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 60%, rgba(139, 115, 85, 0.04) 0%, transparent 50%);
+            animation: float 25s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        
+        /* Ultra-luxury glass morphism */
+        .glass {
+            background: 
+                linear-gradient(145deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%),
+                linear-gradient(45deg, rgba(255, 248, 240, 0.3) 0%, rgba(245, 235, 220, 0.2) 100%);
+            backdrop-filter: blur(25px) saturate(150%);
+            -webkit-backdrop-filter: blur(25px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 
+                0 20px 60px rgba(184, 134, 11, 0.12),
+                0 8px 32px rgba(255, 255, 255, 0.1),
+                inset 0 2px 4px rgba(255, 255, 255, 0.5),
+                inset 0 -1px 2px rgba(184, 134, 11, 0.1);
+        }
+        
+        /* Elegant animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
+        
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            animation: fadeInLeft 1s ease forwards;
+        }
+        
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(30px);
+            animation: fadeInRight 1s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Subtle hover effects */
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Elegant typography */
+        .text-gold {
+            color: var(--accent);
+        }
+        
+        .text-elegant {
+            color: var(--primary);
+            line-height: 1.7;
+        }
+        
+        /* Vertical Memory Lane Styles */
+        .memory-image-placeholder {
+            box-shadow: 
+                0 8px 24px rgba(184, 134, 11, 0.2),
+                inset 0 2px 4px rgba(255, 255, 255, 0.4);
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .memory-image-placeholder:hover {
+            box-shadow: 
+                0 12px 32px rgba(184, 134, 11, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.6);
+        }
+        
+        .memory-item {
+            position: relative;
+        }
+        
+        /* Mobile optimizations for vertical timeline */
+        @media (max-width: 768px) {
+            .memory-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .memory-item .w-1\/2 {
+                width: 100%;
+                text-align: center;
+                padding: 0;
+            }
+            
+            .memory-image-placeholder {
+                width: 60px;
+                height: 60px;
+            }
+        }
+        
+        /* Staggered animations */
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+        .stagger-6 { animation-delay: 0.6s; }
+        
+        /* All other existing styles from the original file... */
+        .music-clip-btn {
+            position: relative;
+            background: linear-gradient(145deg, 
+                rgba(139, 115, 85, 0.15) 0%, 
+                rgba(184, 134, 11, 0.1) 50%,
+                rgba(218, 165, 32, 0.15) 100%);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 2px solid rgba(184, 134, 11, 0.3);
+            color: #2c2c2c;
+            padding: 18px 36px;
+            border-radius: 40px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: -0.01em;
+            text-transform: none;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            box-shadow: 
+                0 6px 24px rgba(184, 134, 11, 0.12),
+                inset 0 1px 0 rgba(255,255,255,0.3),
+                inset 0 -1px 0 rgba(139, 115, 85, 0.15);
+            overflow: hidden;
+        }
+        
+        .elegant-btn {
+            position: relative;
+            background: 
+                linear-gradient(145deg, 
+                    rgba(255, 255, 255, 0.75) 0%, 
+                    rgba(255, 248, 240, 0.6) 25%,
+                    rgba(248, 240, 225, 0.5) 50%,
+                    rgba(245, 235, 215, 0.6) 75%,
+                    rgba(255, 255, 255, 0.7) 100%
+                );
+            backdrop-filter: blur(40px) brightness(1.15) contrast(1.1);
+            -webkit-backdrop-filter: blur(40px) brightness(1.15) contrast(1.1);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            color: #1a1a1a;
+            padding: 16px 32px;
+            border-radius: 32px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: -0.01em;
+            text-transform: none;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            box-shadow: 
+                0 8px 24px rgba(184, 134, 11, 0.15),
+                0 4px 12px rgba(255, 255, 255, 0.2),
+                inset 0 2px 4px rgba(255, 255, 255, 0.9),
+                inset 0 -1px 2px rgba(184, 134, 11, 0.06);
+            overflow: hidden;
+            will-change: transform, box-shadow, background;
+        }
+        
+        .elegant-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 
+                0 12px 32px rgba(184, 134, 11, 0.25),
+                0 8px 20px rgba(255, 215, 0, 0.15),
+                inset 0 2px 4px rgba(255, 255, 255, 0.95),
+                inset 0 -1px 2px rgba(184, 134, 11, 0.08);
+        }
+        
+        /* Luxury floating elements */
+        .luxury-particle {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: 
+                radial-gradient(circle at 30% 30%, 
+                    rgba(255, 215, 0, 0.3) 0%, 
+                    rgba(184, 134, 11, 0.2) 40%,
+                    rgba(255, 248, 240, 0.1) 70%,
+                    transparent 100%);
+            border-radius: 50%;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            animation: luxuryFloat 20s infinite ease-in-out;
+            box-shadow: 
+                0 8px 32px rgba(255, 215, 0, 0.1),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3);
+        }
+        
+        @keyframes luxuryFloat {
+            0%, 100% { 
+                transform: translate(0px, 0px) rotate(0deg) scale(1);
+                opacity: 0.6;
+            }
+            25% { 
+                transform: translate(20px, -30px) rotate(90deg) scale(1.1);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translate(-15px, -20px) rotate(180deg) scale(0.9);
+                opacity: 0.5;
+            }
+            75% { 
+                transform: translate(25px, 10px) rotate(270deg) scale(1.05);
+                opacity: 0.7;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Elegant background -->
+    <div class="elegant-bg"></div>
+    
+    <!-- Luxury floating elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="luxury-particle" style="top: 10%; left: 15%; animation-delay: 0s;"></div>
+        <div class="luxury-particle" style="top: 25%; right: 20%; animation-delay: 2s;"></div>
+        <div class="luxury-particle" style="bottom: 30%; left: 10%; animation-delay: 4s;"></div>
+        <div class="luxury-particle" style="bottom: 15%; right: 15%; animation-delay: 6s;"></div>
+        <div class="luxury-particle" style="top: 50%; left: 5%; animation-delay: 8s;"></div>
+        <div class="luxury-particle" style="top: 70%; right: 8%; animation-delay: 10s;"></div>
+    </div>
+    
+    <!-- Audio element for music clip -->
+    <audio id="musicClip">
+        <source src="birthday-song.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center px-6 relative">
+        <div class="text-center max-w-4xl mx-auto">
+            <div class="fade-in-up stagger-1">
+                <h1 class="serif-display text-5xl md:text-7xl lg:text-8xl font-bold text-elegant mb-8">
+                    Happy Birthday
+                </h1>
+            </div>
+            <div class="fade-in-up stagger-2">
+                <h2 class="serif-elegant text-xl md:text-2xl lg:text-3xl font-medium text-gold mb-12">
+                    To someone extraordinary
+                </h2>
+            </div>
+            <div class="fade-in-up stagger-3">
+                <div class="w-16 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-8"></div>
+            </div>
+            <div class="fade-in-up stagger-4">
+                <p class="text-elegant max-w-2xl mx-auto font-normal">
+                    Today marks another year of your beautiful presence in this world. 
+                    Every moment shared with you becomes a cherished memory.
+                </p>
+            </div>
+            <div class="fade-in-up stagger-5">
+                <div class="flex justify-center mt-20">
+                    <button onclick="revealSecretMessage()" class="elegant-btn" style="background: linear-gradient(145deg, rgba(139, 115, 200, 0.7) 0%, rgba(159, 122, 234, 0.6) 25%, rgba(176, 140, 255, 0.5) 50%, rgba(155, 125, 230, 0.6) 75%, rgba(145, 120, 210, 0.7) 100%);">
+                        🔮 Secret
+                    </button>
+                </div>
+            </div>
+            <div id="secretMessage" class="hidden mt-20 fade-in-up">
+                <div class="glass rounded-2xl p-10 max-w-2xl mx-auto">
+                    <p class="text-elegant text-center italic text-lg leading-relaxed">
+                        "You found the secret! 🎉 You're not just special today, you're special every single day of the year. 
+                        This website is just a small token of how much you mean to me. ✨"
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+    
+    <!-- Messages Section -->
+    <section class="min-h-screen flex items-center justify-center px-6 py-24">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-24 fade-in-up">
+                <h2 class="serif-display text-3xl md:text-4xl lg:text-5xl font-semibold text-elegant mb-6">
+                    What Makes You Special
+                </h2>
+                <div class="w-24 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 lg:gap-20">
+                <div class="glass rounded-2xl p-10 hover-lift fade-in-left stagger-1 interactive-card cursor-pointer" onclick="pulseCard(this)">
+                    <div class="w-16 h-16 rounded-full flex items-center justify-center mb-8 relative overflow-hidden" 
+                         style="background: 
+                            radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.8) 0%, rgba(184, 134, 11, 0.9) 100%),
+                            linear-gradient(145deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+                            box-shadow: 
+                                0 8px 24px rgba(184, 134, 11, 0.3),
+                                inset 0 2px 4px rgba(255, 255, 255, 0.6),
+                                inset 0 -2px 4px rgba(184, 134, 11, 0.3);
+                            backdrop-filter: blur(10px);">
+                        <svg class="w-8 h-8 text-white relative z-10" fill="currentColor" viewBox="0 0 24 24" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                        <div class="absolute inset-0 rounded-full bg-gradient-to-br from-transparent to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100"
+                             style="background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);"></div>
+                    </div>
+                    <h3 class="serif-elegant text-xl font-semibold text-elegant mb-3">Your Grace</h3>
+                    <p class="text-elegant leading-relaxed">
+                        The way you carry yourself with such elegance and kindness inspires everyone around you. 
+                        Your presence brings warmth to every room you enter.
+                    </p>
+                    <div class="hidden-message mt-4 opacity-0 transition-opacity duration-500 italic text-gold">
+                        Click me for a little surprise! ✨
+                    </div>
+                </div>
+                
+                <div class="glass rounded-2xl p-10 hover-lift fade-in-right stagger-2 interactive-card cursor-pointer" onclick="pulseCard(this)">
+                    <div class="w-16 h-16 rounded-full flex items-center justify-center mb-8 relative overflow-hidden" 
+                         style="background: 
+                            radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.8) 0%, rgba(184, 134, 11, 0.9) 100%),
+                            linear-gradient(145deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+                            box-shadow: 
+                                0 8px 24px rgba(184, 134, 11, 0.3),
+                                inset 0 2px 4px rgba(255, 255, 255, 0.6),
+                                inset 0 -2px 4px rgba(184, 134, 11, 0.3);
+                            backdrop-filter: blur(10px);">
+                        <svg class="w-8 h-8 text-white relative z-10" fill="currentColor" viewBox="0 0 24 24" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div class="absolute inset-0 rounded-full bg-gradient-to-br from-transparent to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100"
+                             style="background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);"></div>
+                    </div>
+                    <h3 class="serif-elegant text-2xl font-semibold text-elegant mb-4">Your Wisdom</h3>
+                    <p class="text-elegant leading-relaxed">
+                        Your thoughtful perspective on life and your ability to find meaning in both 
+                        small moments and big dreams makes every conversation meaningful.
+                    </p>
+                    <div class="hidden-message mt-4 opacity-0 transition-opacity duration-500 italic text-gold">
+                        Your wisdom lights up my world! 🌟
+                    </div>
+                </div>
+                
+                <div class="glass rounded-2xl p-10 hover-lift fade-in-left stagger-3 interactive-card cursor-pointer" onclick="pulseCard(this)">
+                    <div class="w-12 h-12 rounded-full flex items-center justify-center mb-6" style="background: linear-gradient(135deg, #b8860b 0%, #daa520 100%);">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                        </svg>
+                    </div>
+                    <h3 class="serif-elegant text-2xl font-semibold text-elegant mb-4">Your Dreams</h3>
+                    <p class="text-elegant leading-relaxed">
+                        The passion you have for your goals and the determination you show in pursuing 
+                        them is truly inspiring. You make the impossible seem achievable.
+                    </p>
+                    <div class="hidden-message mt-4 opacity-0 transition-opacity duration-500 italic text-gold">
+                        Dream big, you beautiful soul! ⭐
+                    </div>
+                </div>
+                
+                <div class="glass rounded-2xl p-10 hover-lift fade-in-right stagger-4 interactive-card cursor-pointer" onclick="pulseCard(this)">
+                    <div class="w-12 h-12 rounded-full flex items-center justify-center mb-6" style="background: linear-gradient(135deg, #b8860b 0%, #daa520 100%);">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="serif-elegant text-2xl font-semibold text-elegant mb-4">Our Journey</h3>
+                    <p class="text-elegant leading-relaxed">
+                        Every shared moment has been a gift. Looking forward to creating more 
+                        beautiful memories together and celebrating many more birthdays by your side.
+                    </p>
+                    <div class="hidden-message mt-4 opacity-0 transition-opacity duration-500 italic text-gold">
+                        Forever and always together! 💫
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Memory Lane Section -->
+    <section class="py-24 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="serif-display text-4xl md:text-6xl font-medium text-elegant mb-8">
+                    Your Journey
+                </h2>
+                <div class="w-24 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-8"></div>
+                <p class="text-elegant italic max-w-2xl mx-auto text-lg">
+                    Celebrating the incredible woman you are and all you've accomplished.
+                </p>
+                <p class="text-sm text-elegant opacity-75 mt-4">
+                    Click on circles to add photos of your beautiful moments
+                </p>
+            </div>
+            
+            <!-- Vertical Memory Timeline -->
+            <div class="relative fade-in-up stagger-2">
+                <!-- Vertical Timeline Line -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-transparent via-gold to-transparent"></div>
+                
+                <!-- Memory Items -->
+                <div class="space-y-16">
+                    
+                    <!-- Memory 1 -->
+                    <div class="memory-item flex items-center gap-8 fade-in-up stagger-1">
+                        <div class="w-1/2 text-right pr-8">
+                            <div class="memory-year text-gold font-bold mb-2">2019</div>
+                            <p class="text-elegant">When you discovered your passion and started shining</p>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="memory-image-placeholder w-20 h-20 rounded-full border-4 border-gold bg-white/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-300" onclick="uploadMemoryImage(this)">
+                                <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="w-1/2"></div>
+                    </div>
+                    
+                    <!-- Memory 2 -->
+                    <div class="memory-item flex items-center gap-8 fade-in-up stagger-2">
+                        <div class="w-1/2"></div>
+                        <div class="relative z-10">
+                            <div class="memory-image-placeholder w-20 h-20 rounded-full border-4 border-gold bg-white/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-300" onclick="uploadMemoryImage(this)">
+                                <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="w-1/2 pl-8">
+                            <div class="memory-year text-gold font-bold mb-2">2020</div>
+                            <p class="text-elegant">Your courage to embrace new adventures and challenges</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Memory 3 -->
+                    <div class="memory-item flex items-center gap-8 fade-in-up stagger-3">
+                        <div class="w-1/2 text-right pr-8">
+                            <div class="memory-year text-gold font-bold mb-2">2021</div>
+                            <p class="text-elegant">Finding strength and grace through difficult times</p>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="memory-image-placeholder w-20 h-20 rounded-full border-4 border-gold bg-white/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-300" onclick="uploadMemoryImage(this)">
+                                <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="w-1/2"></div>
+                    </div>
+                    
+                    <!-- Memory 4 -->
+                    <div class="memory-item flex items-center gap-8 fade-in-up stagger-4">
+                        <div class="w-1/2"></div>
+                        <div class="relative z-10">
+                            <div class="memory-image-placeholder w-20 h-20 rounded-full border-4 border-gold bg-white/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-300" onclick="uploadMemoryImage(this)">
+                                <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="w-1/2 pl-8">
+                            <div class="memory-year text-gold font-bold mb-2">2022</div>
+                            <p class="text-elegant">Achieving goals you once thought impossible</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Memory 5 -->
+                    <div class="memory-item flex items-center gap-8 fade-in-up stagger-5">
+                        <div class="w-1/2 text-right pr-8">
+                            <div class="memory-year text-gold font-bold mb-2">2023</div>
+                            <p class="text-elegant">Inspiring others with your kindness and wisdom</p>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="memory-image-placeholder w-20 h-20 rounded-full border-4 border-gold bg-white/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-300" onclick="uploadMemoryImage(this)">
+                                <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="w-1/2"></div>
+                    </div>
+                    
+                    <!-- Memory 6 - Today -->
+                    <div class="memory-item flex items-center gap-8 fade-in-up stagger-6">
+                        <div class="w-1/2"></div>
+                        <div class="relative z-10">
+                            <div class="memory-image-placeholder w-20 h-20 rounded-full border-4 border-gold bg-white/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-300" onclick="uploadMemoryImage(this)">
+                                <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="w-1/2 pl-8">
+                            <div class="memory-year text-gold font-bold mb-2">2024</div>
+                            <p class="text-elegant">Today we celebrate the amazing woman you've become</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Final Message Section -->
+    <section class="min-h-screen flex items-center justify-center px-6 py-24">
+        <div class="text-center max-w-5xl mx-auto">
+            <div class="fade-in-up stagger-1 mb-16">
+                <h2 class="serif-display text-4xl md:text-6xl font-medium text-elegant mb-10">
+                    A Birthday Wish
+                </h2>
+                <div class="w-24 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto"></div>
+            </div>
+            
+            <div class="glass rounded-3xl p-10 md:p-16 mb-16 fade-in-up stagger-2 max-w-4xl mx-auto">
+                <p class="text-lg md:text-xl text-elegant leading-relaxed mb-10">
+                    On this beautiful day, I wish for you all the happiness your heart can hold, 
+                    all the dreams you dare to dream, and all the love this world has to offer.
+                </p>
+                <p class="text-lg md:text-xl text-elegant leading-relaxed mb-10">
+                    May this new year of your life bring you closer to everything you've ever wanted, 
+                    and may every day be filled with moments that make you smile.
+                </p>
+                <div class="serif-elegant text-3xl md:text-4xl text-gold font-semibold italic">
+                    Happy Birthday ✨
+                </div>
+            </div>
+            
+            <div class="fade-in-up stagger-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 max-w-4xl mx-auto">
+                    <button onclick="createCelebration()" class="elegant-btn">
+                        ✨ Celebrate
+                    </button>
+                    <button onclick="showLoveNote()" class="elegant-btn">
+                        💌 Love Note
+                    </button>
+                    <button onclick="createHeartRain()" class="elegant-btn">
+                        💕 Make it rain
+                    </button>
+                    <button onclick="showLoveMeter()" class="elegant-btn">
+                        💖 Love Meter
+                    </button>
+                    <button onclick="createStarField()" class="elegant-btn">
+                        ⭐ Make Stars
+                    </button>
+                </div>
+                <div class="text-center mt-20">
+                    <button id="musicClipBtn" onclick="playMusicClip()" class="music-clip-btn">
+                        <span class="btn-text">💫 Going away? Press me before you go</span>
+                        <span class="btn-playing hidden">🎶 Playing your message... ♪</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="script.js"></script>
+</body>
+</html>

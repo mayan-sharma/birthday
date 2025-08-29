@@ -1,0 +1,95 @@
+/* Additional mobile enhancements */
+
+/* Mobile viewport fixes */
+@media screen and (max-width: 768px) {
+    /* Ensure full height on mobile */
+    .min-h-screen {
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+    }
+    
+    /* Better touch targets */
+    button, .photo-card {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Improve text readability on small screens */
+    .dancing-script {
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    /* Optimize floating elements for mobile */
+    .floating-heart {
+        font-size: 16px !important;
+    }
+    
+    /* Better spacing on mobile */
+    section {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    /* Improve music control on mobile */
+    .music-control {
+        bottom: 80px;
+        right: 16px;
+    }
+    
+    /* Prevent horizontal scroll */
+    body {
+        overflow-x: hidden;
+        width: 100%;
+    }
+}
+
+/* Landscape mobile adjustments */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    .min-h-screen {
+        min-height: 100vh;
+    }
+    
+    section {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    
+    .dancing-script.text-6xl,
+    .dancing-script.text-8xl {
+        font-size: 3rem !important;
+    }
+    
+    .dancing-script.text-4xl,
+    .dancing-script.text-6xl {
+        font-size: 2rem !important;
+    }
+}
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+    .min-h-screen {
+        min-height: -webkit-fill-available;
+    }
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .sparkle {
+        width: 6px;
+        height: 6px;
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .floating-heart,
+    .sparkle {
+        display: none;
+    }
+}
