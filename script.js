@@ -813,6 +813,104 @@ if ('ontouchstart' in window) {
     document.documentElement.style.scrollBehavior = 'smooth';
 }
 
+// Birthday Cake Functionality
+let extinguishedCandles = 0;
+const totalCandles = 5;
+
+// Initialize cake functionality
+document.addEventListener('DOMContentLoaded', function() {
+    setupCakeInteraction();
+});
+
+function setupCakeInteraction() {
+    const candles = document.querySelectorAll('.candle');
+    
+    candles.forEach(candle => {
+        candle.addEventListener('click', () => extinguishCandle(candle));
+        candle.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            extinguishCandle(candle);
+        });
+    });
+}
+
+function extinguishCandle(candle) {
+    // Check if candle is already extinguished
+    if (candle.classList.contains('blown-out')) {
+        return;
+    }
+    
+    // Mark candle as blown out
+    candle.classList.add('blown-out');
+    const flame = candle.querySelector('.flame');
+    
+    if (flame) {
+        flame.classList.add('extinguished');
+    }
+    
+    // Update counter
+    extinguishedCandles++;
+    
+    // Create puff of smoke effect
+    createSmokeEffect(candle);
+    
+    // Check if all candles are extinguished
+    if (extinguishedCandles >= totalCandles) {
+        setTimeout(() => {
+            triggerConfettiCelebration();
+        }, 1000);
+    }
+}
+
+function createSmokeEffect(candle) {
+    const rect = candle.getBoundingClientRect();
+    const smokeContainer = document.createElement('div');
+    smokeContainer.className = 'fixed inset-0 pointer-events-none z-50';
+    document.body.appendChild(smokeContainer);
+    
+    // Create multiple smoke particles
+    for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+            const smoke = document.createElement('div');
+            smoke.className = 'absolute rounded-full';
+            smoke.style.width = '6px';
+            smoke.style.height = '6px';
+            smoke.style.background = 'rgba(150, 150, 150, 0.7)';
+            smoke.style.left = rect.left + rect.width / 2 + 'px';
+            smoke.style.top = rect.top + 'px';
+            smoke.style.transform = 'translate(-50%, -50%)';
+            
+            smokeContainer.appendChild(smoke);
+            
+            // Animate smoke rising
+            smoke.animate([
+                { 
+                    transform: 'translate(-50%, -50%) scale(0)',
+                    opacity: 0.7
+                },
+                { 
+                    transform: 'translate(-50%, -50%) scale(1)',
+                    opacity: 0.5,
+                    offset: 0.3
+                },
+                { 
+                    transform: `translate(${-50 + (Math.random() - 0.5) * 60}%, ${-50 - 80}px) scale(2)`,
+                    opacity: 0
+                }
+            ], {
+                duration: 2000 + Math.random() * 1000,
+                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            }).onfinish = () => smoke.remove();
+        }, i * 50);
+    }
+    
+    setTimeout(() => {
+        if (smokeContainer.parentNode) {
+            smokeContainer.remove();
+        }
+    }, 4000);
+}
+
 // Memory Lane Scroller Functionality
 function expandMemory(card, title, fullText, year) {
     if (document.querySelector('.memory-modal')) return;
@@ -1154,3 +1252,89 @@ memoryStyle.textContent = `
     }
 `;
 document.head.appendChild(memoryStyle);
+
+// Confetti Celebration Function
+function triggerConfettiCelebration() {
+    // Prevent multiple confetti celebrations
+    if (document.querySelector('.confetti-container')) {
+        return;
+    }
+    
+    const confettiContainer = document.createElement('div');
+    confettiContainer.className = 'confetti-container';
+    document.body.appendChild(confettiContainer);
+    
+    // Create multiple waves of confetti
+    for (let wave = 0; wave < 4; wave++) {
+        setTimeout(() => {
+            createConfettiWave(confettiContainer, wave);
+        }, wave * 500);
+    }
+    
+    // Clean up confetti container
+    setTimeout(() => {
+        if (confettiContainer.parentNode) {
+            confettiContainer.remove();
+        }
+    }, 8000);
+}
+
+function createConfettiWave(container, waveIndex) {
+    const confettiCount = 50 + (waveIndex * 10); // More confetti in later waves
+    
+    for (let i = 0; i < confettiCount; i++) {
+        setTimeout(() => {
+            createConfettiPiece(container);
+        }, i * 50);
+    }
+}
+
+function createConfettiPiece(container) {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti-piece';
+    
+    // Random confetti type
+    const types = ['confetti-square', 'confetti-circle', 'confetti-triangle'];
+    const randomType = types[Math.floor(Math.random() * types.length)];
+    confetti.classList.add(randomType);
+    
+    // Random position across the top of the screen
+    confetti.style.left = Math.random() * 100 + '%';
+    confetti.style.top = '-20px';
+    
+    // Random size
+    const size = Math.random() * 8 + 6;
+    if (randomType === 'confetti-triangle') {
+        confetti.style.borderLeftWidth = size / 2 + 'px';
+        confetti.style.borderRightWidth = size / 2 + 'px';
+        confetti.style.borderBottomWidth = size + 'px';
+    } else {
+        confetti.style.width = size + 'px';
+        confetti.style.height = size + 'px';
+    }
+    
+    container.appendChild(confetti);
+    
+    // Random fall animation
+    const fallDuration = 3000 + Math.random() * 2000;
+    const horizontalMovement = (Math.random() - 0.5) * 100;
+    
+    confetti.animate([
+        {
+            transform: 'translateY(-100px) translateX(0px) rotate(0deg)',
+            opacity: 1
+        },
+        {
+            transform: `translateY(${window.innerHeight + 100}px) translateX(${horizontalMovement}px) rotate(${360 + Math.random() * 360}deg)`,
+            opacity: 0
+        }
+    ], {
+        duration: fallDuration,
+        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+    }).onfinish = () => {
+        if (confetti.parentNode) {
+            confetti.remove();
+        }
+    };
+}
+

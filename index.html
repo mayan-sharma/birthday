@@ -316,6 +316,272 @@
                 opacity: 0.7;
             }
         }
+        
+        /* Birthday Cake Styles */
+        .cake-container {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        
+        .cake-base {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        
+        .cake-layer {
+            position: absolute;
+            border-radius: 20px;
+            box-shadow: 
+                0 8px 24px rgba(184, 134, 11, 0.2),
+                inset 0 2px 4px rgba(255, 255, 255, 0.4),
+                inset 0 -2px 6px rgba(184, 134, 11, 0.1);
+            background: linear-gradient(
+                145deg,
+                #f8f5f0 0%,
+                #f2ede6 25%,
+                #ebe6dd 50%,
+                #e4ddd4 75%,
+                #ddd6cc 100%
+            );
+        }
+        
+        .cake-layer-1 {
+            width: 320px;
+            height: 80px;
+            bottom: 0;
+            z-index: 3;
+            border: 3px solid rgba(184, 134, 11, 0.3);
+        }
+        
+        .cake-layer-2 {
+            width: 280px;
+            height: 70px;
+            bottom: 75px;
+            z-index: 2;
+            border: 3px solid rgba(184, 134, 11, 0.3);
+        }
+        
+        .cake-layer-3 {
+            width: 240px;
+            height: 60px;
+            bottom: 140px;
+            z-index: 1;
+            border: 3px solid rgba(184, 134, 11, 0.3);
+        }
+        
+        .cake-layer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 15px;
+            border-radius: 20px 20px 0 0;
+            background: linear-gradient(
+                145deg,
+                rgba(255, 215, 0, 0.3) 0%,
+                rgba(184, 134, 11, 0.2) 50%,
+                rgba(218, 165, 32, 0.3) 100%
+            );
+        }
+        
+        .candles-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 240px;
+            height: 100%;
+            z-index: 10;
+        }
+        
+        .candle {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            bottom: 200px;
+        }
+        
+        .candle:nth-child(1) { left: 10%; }
+        .candle:nth-child(2) { left: 25%; }
+        .candle:nth-child(3) { left: 50%; transform: translateX(-50%); }
+        .candle:nth-child(4) { right: 25%; }
+        .candle:nth-child(5) { right: 10%; }
+        
+        .candle:hover {
+            transform: scale(1.1);
+        }
+        
+        .candle-stick {
+            width: 8px;
+            height: 40px;
+            background: linear-gradient(
+                135deg,
+                #8b4513 0%,
+                #a0522d  50%,
+                #cd853f 100%
+            );
+            border-radius: 4px;
+            box-shadow: 
+                0 2px 8px rgba(139, 69, 19, 0.3),
+                inset 0 1px 2px rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .flame {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 24px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            background: radial-gradient(
+                circle at center bottom,
+                #ffeb3b 0%,
+                #ff9800 30%,
+                #ff5722 60%,
+                #d32f2f 100%
+            );
+            box-shadow: 
+                0 0 10px rgba(255, 152, 0, 0.6),
+                0 0 20px rgba(255, 87, 34, 0.4),
+                0 0 30px rgba(211, 47, 47, 0.3);
+            animation: flicker 1.5s infinite alternate;
+            transition: all 0.5s ease;
+        }
+        
+        .flame.extinguished {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-10px) scale(0);
+        }
+        
+        .flame-inner {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 12px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            background: radial-gradient(
+                circle at center bottom,
+                #fff3e0 0%,
+                #ffcc02 50%,
+                transparent 100%
+            );
+        }
+        
+        @keyframes flicker {
+            0% {
+                transform: translateX(-50%) rotate(-1deg) scale(1);
+                filter: brightness(1);
+            }
+            25% {
+                transform: translateX(-50%) rotate(1deg) scale(1.05);
+                filter: brightness(1.1);
+            }
+            50% {
+                transform: translateX(-50%) rotate(-2deg) scale(0.95);
+                filter: brightness(0.9);
+            }
+            75% {
+                transform: translateX(-50%) rotate(1deg) scale(1.02);
+                filter: brightness(1.05);
+            }
+            100% {
+                transform: translateX(-50%) rotate(0deg) scale(1);
+                filter: brightness(1);
+            }
+        }
+        
+        .candle.blown-out .flame {
+            animation: extinguish 0.5s ease forwards;
+        }
+        
+        @keyframes extinguish {
+            0% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+                filter: brightness(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: translateX(-50%) scale(1.2) translateY(-5px);
+                filter: brightness(0.5);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) scale(0) translateY(-10px);
+                filter: brightness(0);
+            }
+        }
+        
+        /* Confetti Animation */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0.9;
+        }
+        
+        .confetti-square {
+            background: linear-gradient(45deg, #ff6b9d, #ffd93d);
+        }
+        
+        .confetti-circle {
+            border-radius: 50%;
+            background: linear-gradient(45deg, #6bcf7f, #4ecdc4);
+        }
+        
+        .confetti-triangle {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 10px solid #ff8a80;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive cake styles */
+        @media (max-width: 768px) {
+            .cake-layer-1 { width: 280px; height: 70px; }
+            .cake-layer-2 { width: 240px; height: 60px; bottom: 65px; }
+            .cake-layer-3 { width: 200px; height: 50px; bottom: 120px; }
+            
+            .candles-container { width: 200px; }
+            .candle { bottom: 170px; }
+            .candle-stick { width: 6px; height: 35px; }
+            .flame { width: 14px; height: 20px; top: -18px; }
+            .flame-inner { width: 7px; height: 10px; }
+        }
     </style>
 </head>
 <body>
@@ -508,9 +774,7 @@
                         </div>
                         <div class="relative z-10">
                             <div class="memory-image-placeholder w-20 h-20 rounded-full border-4 border-gold bg-white/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-300" onclick="uploadMemoryImage(this)">
-                                <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                </svg>
+                                <img src="https://via.placeholder.com/80/f8f5f0/b8860b?text=2019" alt="Memory" class="w-full h-full object-cover rounded-full">
                             </div>
                         </div>
                         <div class="w-1/2"></div>
@@ -521,9 +785,7 @@
                         <div class="w-1/2"></div>
                         <div class="relative z-10">
                             <div class="memory-image-placeholder w-20 h-20 rounded-full border-4 border-gold bg-white/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-300" onclick="uploadMemoryImage(this)">
-                                <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                </svg>
+                                <img src="https://via.placeholder.com/80/f8f5f0/b8860b?text=2020" alt="Memory" class="w-full h-full object-cover rounded-full">
                             </div>
                         </div>
                         <div class="w-1/2 pl-8">
@@ -540,9 +802,7 @@
                         </div>
                         <div class="relative z-10">
                             <div class="memory-image-placeholder w-20 h-20 rounded-full border-4 border-gold bg-white/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-300" onclick="uploadMemoryImage(this)">
-                                <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                </svg>
+                                <img src="https://via.placeholder.com/80/f8f5f0/b8860b?text=2021" alt="Memory" class="w-full h-full object-cover rounded-full">
                             </div>
                         </div>
                         <div class="w-1/2"></div>
@@ -553,9 +813,7 @@
                         <div class="w-1/2"></div>
                         <div class="relative z-10">
                             <div class="memory-image-placeholder w-20 h-20 rounded-full border-4 border-gold bg-white/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-300" onclick="uploadMemoryImage(this)">
-                                <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                </svg>
+                                <img src="https://via.placeholder.com/80/f8f5f0/b8860b?text=2022" alt="Memory" class="w-full h-full object-cover rounded-full">
                             </div>
                         </div>
                         <div class="w-1/2 pl-8">
@@ -572,9 +830,7 @@
                         </div>
                         <div class="relative z-10">
                             <div class="memory-image-placeholder w-20 h-20 rounded-full border-4 border-gold bg-white/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-300" onclick="uploadMemoryImage(this)">
-                                <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                </svg>
+                                <img src="https://via.placeholder.com/80/f8f5f0/b8860b?text=2023" alt="Memory" class="w-full h-full object-cover rounded-full">
                             </div>
                         </div>
                         <div class="w-1/2"></div>
@@ -585,9 +841,7 @@
                         <div class="w-1/2"></div>
                         <div class="relative z-10">
                             <div class="memory-image-placeholder w-20 h-20 rounded-full border-4 border-gold bg-white/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-300" onclick="uploadMemoryImage(this)">
-                                <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                </svg>
+                                <img src="https://via.placeholder.com/80/f8f5f0/b8860b?text=2024" alt="Memory" class="w-full h-full object-cover rounded-full">
                             </div>
                         </div>
                         <div class="w-1/2 pl-8">
@@ -596,6 +850,63 @@
                         </div>
                     </div>
                     
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Birthday Cake Section -->
+    <section class="py-24 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="fade-in-up stagger-1 mb-16">
+                <h2 class="serif-display text-4xl md:text-6xl font-medium text-elegant mb-8">
+                    Make a Wish
+                </h2>
+                <div class="w-24 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-8"></div>
+            </div>
+            
+            <!-- Birthday Cake -->
+            <div class="cake-container relative mx-auto mb-16 fade-in-up stagger-2" style="max-width: 400px;">
+                <!-- Cake Base -->
+                <div class="cake-base relative">
+                    <!-- Cake Layers -->
+                    <div class="cake-layer cake-layer-3"></div>
+                    <div class="cake-layer cake-layer-2"></div>
+                    <div class="cake-layer cake-layer-1"></div>
+                    
+                    <!-- Candles -->
+                    <div class="candles-container">
+                        <div class="candle" data-candle="1">
+                            <div class="candle-stick"></div>
+                            <div class="flame" data-flame="1">
+                                <div class="flame-inner"></div>
+                            </div>
+                        </div>
+                        <div class="candle" data-candle="2">
+                            <div class="candle-stick"></div>
+                            <div class="flame" data-flame="2">
+                                <div class="flame-inner"></div>
+                            </div>
+                        </div>
+                        <div class="candle" data-candle="3">
+                            <div class="candle-stick"></div>
+                            <div class="flame" data-flame="3">
+                                <div class="flame-inner"></div>
+                            </div>
+                        </div>
+                        <div class="candle" data-candle="4">
+                            <div class="candle-stick"></div>
+                            <div class="flame" data-flame="4">
+                                <div class="flame-inner"></div>
+                            </div>
+                        </div>
+                        <div class="candle" data-candle="5">
+                            <div class="candle-stick"></div>
+                            <div class="flame" data-flame="5">
+                                <div class="flame-inner"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -627,17 +938,11 @@
             
             <div class="fade-in-up stagger-3">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 max-w-4xl mx-auto">
-                    <button onclick="createCelebration()" class="elegant-btn">
-                        ✨ Celebrate
-                    </button>
                     <button onclick="showLoveNote()" class="elegant-btn">
                         💌 Love Note
                     </button>
                     <button onclick="createHeartRain()" class="elegant-btn">
                         💕 Make it rain
-                    </button>
-                    <button onclick="showLoveMeter()" class="elegant-btn">
-                        💖 Love Meter
                     </button>
                     <button onclick="createStarField()" class="elegant-btn">
                         ⭐ Make Stars
