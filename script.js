@@ -1,336 +1,312 @@
 // Elegant Birthday Website JavaScript
 let musicClipPlaying = false;
-const musicClip = document.getElementById('musicClip');
-const musicClipBtn = document.getElementById('musicClipBtn');
+const musicClip = document.getElementById("musicClip");
+const musicClipBtn = document.getElementById("musicClipBtn");
 
 // Initialize the website
-document.addEventListener('DOMContentLoaded', function() {
-    setupMusicClip();
-    setupPhotoGallery();
-    setupScrollAnimations();
-    
-    // Start elegant animations
-    setTimeout(() => {
-        startElegantEffects();
-    }, 500);
+document.addEventListener("DOMContentLoaded", function () {
+  setupMusicClip();
+  setupScrollAnimations();
+
+  // Start elegant animations
+  setTimeout(() => {
+    startElegantEffects();
+  }, 500);
 });
 
 // Setup music clip
 function setupMusicClip() {
-    if (musicClip) {
-        musicClip.volume = 0.7;
-        musicClip.addEventListener('ended', onMusicClipEnded);
-    }
+  if (musicClip) {
+    musicClip.volume = 0.7;
+    musicClip.addEventListener("ended", onMusicClipEnded);
+  }
 }
 
 function playMusicClip() {
-    if (!musicClipPlaying) {
-        musicClip.play().catch(e => {
-            console.log('Audio play requires user interaction:', e);
-            showMusicPrompt();
-        });
-        
-        // Update button appearance
-        const btnText = musicClipBtn.querySelector('.btn-text');
-        const btnPlaying = musicClipBtn.querySelector('.btn-playing');
-        
-        btnText.classList.add('hidden');
-        btnPlaying.classList.remove('hidden');
-        
-        musicClipBtn.style.background = 'linear-gradient(135deg, #228B22 0%, #32CD32 100%)';
-        musicClipBtn.style.transform = 'scale(0.95)';
-        
-        musicClipPlaying = true;
-    }
+  if (!musicClipPlaying) {
+    musicClip.play().catch((e) => {
+      console.log("Audio play requires user interaction:", e);
+      showMusicPrompt();
+    });
+
+    // Update button appearance
+    const btnText = musicClipBtn.querySelector(".btn-text");
+    const btnPlaying = musicClipBtn.querySelector(".btn-playing");
+
+    btnText.classList.add("hidden");
+    btnPlaying.classList.remove("hidden");
+
+    musicClipBtn.style.background =
+      "linear-gradient(135deg, #228B22 0%, #32CD32 100%)";
+    musicClipBtn.style.transform = "scale(0.95)";
+
+    musicClipPlaying = true;
+  }
 }
 
 function onMusicClipEnded() {
-    // Reset button appearance
-    const btnText = musicClipBtn.querySelector('.btn-text');
-    const btnPlaying = musicClipBtn.querySelector('.btn-playing');
-    
-    btnText.classList.remove('hidden');
-    btnPlaying.classList.add('hidden');
-    
-    musicClipBtn.style.background = 'linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%)';
-    musicClipBtn.style.transform = 'scale(1)';
-    
-    musicClipPlaying = false;
+  // Reset button appearance
+  const btnText = musicClipBtn.querySelector(".btn-text");
+  const btnPlaying = musicClipBtn.querySelector(".btn-playing");
+
+  btnText.classList.remove("hidden");
+  btnPlaying.classList.add("hidden");
+
+  musicClipBtn.style.background =
+    "linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%)";
+  musicClipBtn.style.transform = "scale(1)";
+
+  musicClipPlaying = false;
 }
 
 function showMusicPrompt() {
-    const prompt = document.createElement('div');
-    prompt.className = 'fixed top-8 left-1/2 transform -translate-x-1/2 glass rounded-2xl px-6 py-4 z-50 text-center';
-    prompt.innerHTML = `
+  const prompt = document.createElement("div");
+  prompt.className =
+    "fixed top-8 left-1/2 transform -translate-x-1/2 glass rounded-2xl px-6 py-4 z-50 text-center";
+  prompt.innerHTML = `
         <div class="text-elegant font-medium mb-2">🎵 Music Ready</div>
         <div class="text-sm text-elegant opacity-75">Click the song button to play</div>
     `;
-    document.body.appendChild(prompt);
-    
-    setTimeout(() => {
-        prompt.style.opacity = '0';
-        setTimeout(() => {
-            prompt.remove();
-        }, 300);
-    }, 3000);
-}
+  document.body.appendChild(prompt);
 
-// Setup photo gallery
-function setupPhotoGallery() {
-    const photoCards = document.querySelectorAll('.photo-card');
-    
-    photoCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.onchange = (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        card.innerHTML = `
-                            <img src="${e.target.result}" 
-                                 alt="Memory" 
-                                 class="w-full h-full object-cover rounded-xl">
-                        `;
-                        // Add elegant hover effect to uploaded image
-                        card.classList.add('overflow-hidden');
-                    };
-                    reader.readAsDataURL(file);
-                }
-            };
-            input.click();
-        });
-    });
+  setTimeout(() => {
+    prompt.style.opacity = "0";
+    setTimeout(() => {
+      prompt.remove();
+    }, 300);
+  }, 3000);
 }
 
 // Setup scroll animations with Intersection Observer
 function setupScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -10% 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0) translateX(0)';
-            }
-        });
-    }, observerOptions);
-    
-    // Observe all animated elements
-    document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right').forEach(el => {
-        observer.observe(el);
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -10% 0px",
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = "1";
+        entry.target.style.transform = "translateY(0) translateX(0)";
+      }
+    });
+  }, observerOptions);
+
+  // Observe all animated elements
+  document
+    .querySelectorAll(".fade-in-up, .fade-in-left, .fade-in-right")
+    .forEach((el) => {
+      observer.observe(el);
     });
 }
 
 // Start elegant background effects
 function startElegantEffects() {
-    createSubtleParticles();
-    setupParallaxEffect();
+  createSubtleParticles();
+  setupParallaxEffect();
 }
 
 // Create subtle floating particles
 function createSubtleParticles() {
-    const particlesContainer = document.createElement('div');
-    particlesContainer.className = 'fixed inset-0 pointer-events-none z-0';
-    particlesContainer.style.opacity = '0.3';
-    document.body.appendChild(particlesContainer);
-    
-    // Create fewer, more elegant particles
-    for (let i = 0; i < 8; i++) {
-        setTimeout(() => {
-            createParticle(particlesContainer);
-        }, i * 2000);
-    }
-    
-    // Continue creating particles at intervals
-    setInterval(() => {
-        createParticle(particlesContainer);
-    }, 8000);
+  const particlesContainer = document.createElement("div");
+  particlesContainer.className = "fixed inset-0 pointer-events-none z-0";
+  particlesContainer.style.opacity = "0.3";
+  document.body.appendChild(particlesContainer);
+
+  // Create fewer, more elegant particles
+  for (let i = 0; i < 8; i++) {
+    setTimeout(() => {
+      createParticle(particlesContainer);
+    }, i * 2000);
+  }
+
+  // Continue creating particles at intervals
+  setInterval(() => {
+    createParticle(particlesContainer);
+  }, 8000);
 }
 
 function createParticle(container) {
-    const particle = document.createElement('div');
-    particle.className = 'absolute rounded-full';
-    particle.style.width = Math.random() * 4 + 2 + 'px';
-    particle.style.height = particle.style.width;
-    particle.style.background = 'linear-gradient(45deg, rgba(184, 134, 11, 0.3), rgba(218, 165, 32, 0.3))';
-    particle.style.left = Math.random() * window.innerWidth + 'px';
-    particle.style.top = window.innerHeight + 'px';
-    
-    container.appendChild(particle);
-    
-    // Animate particle floating up
-    const animation = particle.animate([
-        { 
-            transform: 'translateY(0px) scale(0)',
-            opacity: 0
-        },
-        { 
-            transform: 'translateY(-100px) scale(1)',
-            opacity: 0.6
-        },
-        { 
-            transform: `translateY(-${window.innerHeight + 100}px) scale(0)`,
-            opacity: 0
-        }
-    ], {
-        duration: 15000 + Math.random() * 10000,
-        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-    });
-    
-    animation.onfinish = () => {
-        particle.remove();
-    };
+  const particle = document.createElement("div");
+  particle.className = "absolute rounded-full";
+  particle.style.width = Math.random() * 4 + 2 + "px";
+  particle.style.height = particle.style.width;
+  particle.style.background =
+    "linear-gradient(45deg, rgba(184, 134, 11, 0.3), rgba(218, 165, 32, 0.3))";
+  particle.style.left = Math.random() * window.innerWidth + "px";
+  particle.style.top = window.innerHeight + "px";
+
+  container.appendChild(particle);
+
+  // Animate particle floating up
+  const animation = particle.animate(
+    [
+      {
+        transform: "translateY(0px) scale(0)",
+        opacity: 0,
+      },
+      {
+        transform: "translateY(-100px) scale(1)",
+        opacity: 0.6,
+      },
+      {
+        transform: `translateY(-${window.innerHeight + 100}px) scale(0)`,
+        opacity: 0,
+      },
+    ],
+    {
+      duration: 15000 + Math.random() * 10000,
+      easing: "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+    }
+  );
+
+  animation.onfinish = () => {
+    particle.remove();
+  };
 }
 
 // Setup subtle parallax effect
 function setupParallaxEffect() {
-    let ticking = false;
-    
-    function updateParallax() {
-        const scrolled = window.pageYOffset;
-        const parallax = document.querySelector('.elegant-bg');
-        
-        if (parallax) {
-            const speed = scrolled * 0.5;
-            parallax.style.transform = `translateY(${speed}px)`;
-        }
-        
-        ticking = false;
+  let ticking = false;
+
+  function updateParallax() {
+    const scrolled = window.pageYOffset;
+    const parallax = document.querySelector(".elegant-bg");
+
+    if (parallax) {
+      const speed = scrolled * 0.5;
+      parallax.style.transform = `translateY(${speed}px)`;
     }
-    
-    function requestTick() {
-        if (!ticking) {
-            requestAnimationFrame(updateParallax);
-            ticking = true;
-        }
+
+    ticking = false;
+  }
+
+  function requestTick() {
+    if (!ticking) {
+      requestAnimationFrame(updateParallax);
+      ticking = true;
     }
-    
-    window.addEventListener('scroll', requestTick);
+  }
+
+  window.addEventListener("scroll", requestTick);
 }
 
 // Smooth scroll to next section
 function scrollToNext() {
-    const sections = document.querySelectorAll('section');
-    const currentSection = Array.from(sections).find(section => {
-        const rect = section.getBoundingClientRect();
-        return rect.top >= -100 && rect.top < window.innerHeight / 2;
-    });
-    
-    if (currentSection) {
-        const nextSection = currentSection.nextElementSibling;
-        if (nextSection) {
-            nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+  const sections = document.querySelectorAll("section");
+  const currentSection = Array.from(sections).find((section) => {
+    const rect = section.getBoundingClientRect();
+    return rect.top >= -100 && rect.top < window.innerHeight / 2;
+  });
+
+  if (currentSection) {
+    const nextSection = currentSection.nextElementSibling;
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+  }
 }
 
 // Elegant celebration effect
 function createCelebration() {
-    // Prevent multiple celebrations at once
-    if (document.querySelector('.celebration-container')) {
-        return;
-    }
-    
-    const celebrationContainer = document.createElement('div');
-    celebrationContainer.className = 'celebration-container fixed inset-0 pointer-events-none z-50';
-    document.body.appendChild(celebrationContainer);
-    
-    // Create elegant golden sparkles
-    const colors = [
-        '#daa520',
-        '#b8860b', 
-        '#ffd700',
-        '#f4e4bc'
-    ];
-    
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
-    
-    // Create multiple waves of sparkles
-    for (let wave = 0; wave < 3; wave++) {
-        setTimeout(() => {
-            for (let i = 0; i < 20; i++) {
-                setTimeout(() => {
-                    createSparkle(celebrationContainer, centerX, centerY, colors);
-                }, i * 50);
-            }
-        }, wave * 800);
-    }
-    
-    // Clean up container
+  // Prevent multiple celebrations at once
+  if (document.querySelector(".celebration-container")) {
+    return;
+  }
+
+  const celebrationContainer = document.createElement("div");
+  celebrationContainer.className =
+    "celebration-container fixed inset-0 pointer-events-none z-50";
+  document.body.appendChild(celebrationContainer);
+
+  // Create elegant golden sparkles
+  const colors = ["#daa520", "#b8860b", "#ffd700", "#f4e4bc"];
+
+  const centerX = window.innerWidth / 2;
+  const centerY = window.innerHeight / 2;
+
+  // Create multiple waves of sparkles
+  for (let wave = 0; wave < 3; wave++) {
     setTimeout(() => {
-        if (celebrationContainer.parentNode) {
-            celebrationContainer.remove();
-        }
-    }, 4000);
-    
-    // Show celebration message
-    showCelebrationMessage();
+      for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+          createSparkle(celebrationContainer, centerX, centerY, colors);
+        }, i * 50);
+      }
+    }, wave * 800);
+  }
+
+  // Clean up container
+  setTimeout(() => {
+    if (celebrationContainer.parentNode) {
+      celebrationContainer.remove();
+    }
+  }, 4000);
+
+  // Show celebration message
+  showCelebrationMessage();
 }
 
 function createSparkle(container, centerX, centerY, colors) {
-    const sparkle = document.createElement('div');
-    sparkle.className = 'absolute';
-    
-    const size = Math.random() * 8 + 4;
-    sparkle.style.width = size + 'px';
-    sparkle.style.height = size + 'px';
-    sparkle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    sparkle.style.borderRadius = '50%';
-    sparkle.style.left = centerX + 'px';
-    sparkle.style.top = centerY + 'px';
-    sparkle.style.transform = 'translate(-50%, -50%)';
-    sparkle.style.boxShadow = '0 0 10px rgba(218, 165, 32, 0.6)';
-    
-    container.appendChild(sparkle);
-    
-    // Random explosion direction
-    const angle = Math.random() * Math.PI * 2;
-    const distance = Math.random() * 300 + 150;
-    const endX = centerX + Math.cos(angle) * distance;
-    const endY = centerY + Math.sin(angle) * distance;
-    
-    // Animate sparkle
-    const keyframes = [
-        { 
-            transform: 'translate(-50%, -50%) scale(0)',
-            opacity: 1
-        },
-        { 
-            transform: 'translate(-50%, -50%) scale(1)',
-            opacity: 1,
-            offset: 0.2
-        },
-        { 
-            transform: `translate(${endX - centerX}px, ${endY - centerY}px) scale(0)`,
-            opacity: 0
-        }
-    ];
-    
-    sparkle.animate(keyframes, {
-        duration: 2000 + Math.random() * 1000,
-        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-        fill: 'forwards'
-    }).onfinish = () => {
-        if (sparkle.parentNode) {
-            sparkle.remove();
-        }
-    };
+  const sparkle = document.createElement("div");
+  sparkle.className = "absolute";
+
+  const size = Math.random() * 8 + 4;
+  sparkle.style.width = size + "px";
+  sparkle.style.height = size + "px";
+  sparkle.style.backgroundColor =
+    colors[Math.floor(Math.random() * colors.length)];
+  sparkle.style.borderRadius = "50%";
+  sparkle.style.left = centerX + "px";
+  sparkle.style.top = centerY + "px";
+  sparkle.style.transform = "translate(-50%, -50%)";
+  sparkle.style.boxShadow = "0 0 10px rgba(218, 165, 32, 0.6)";
+
+  container.appendChild(sparkle);
+
+  // Random explosion direction
+  const angle = Math.random() * Math.PI * 2;
+  const distance = Math.random() * 300 + 150;
+  const endX = centerX + Math.cos(angle) * distance;
+  const endY = centerY + Math.sin(angle) * distance;
+
+  // Animate sparkle
+  const keyframes = [
+    {
+      transform: "translate(-50%, -50%) scale(0)",
+      opacity: 1,
+    },
+    {
+      transform: "translate(-50%, -50%) scale(1)",
+      opacity: 1,
+      offset: 0.2,
+    },
+    {
+      transform: `translate(${endX - centerX}px, ${endY - centerY}px) scale(0)`,
+      opacity: 0,
+    },
+  ];
+
+  sparkle.animate(keyframes, {
+    duration: 2000 + Math.random() * 1000,
+    easing: "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+    fill: "forwards",
+  }).onfinish = () => {
+    if (sparkle.parentNode) {
+      sparkle.remove();
+    }
+  };
 }
 
 function showCelebrationMessage() {
-    if (document.querySelector('.celebration-modal')) return;
-    
-    const modal = document.createElement('div');
-    modal.className = 'celebration-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
-    
-    modal.innerHTML = `
+  if (document.querySelector(".celebration-modal")) return;
+
+  const modal = document.createElement("div");
+  modal.className =
+    "celebration-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4";
+
+  modal.innerHTML = `
         <div class="glass rounded-3xl p-8 max-w-md mx-auto text-center transform scale-0" style="animation: popIn 0.5s ease forwards;">
             <div class="text-6xl mb-4">✨</div>
             <h3 class="serif-elegant text-2xl text-elegant font-semibold mb-6">Celebration!</h3>
@@ -342,158 +318,169 @@ function showCelebrationMessage() {
             </button>
         </div>
     `;
-    
-    document.body.appendChild(modal);
-    
-    // Remove on background click
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) modal.remove();
-    });
-    
-    // Auto remove after 6 seconds
-    setTimeout(() => {
-        if (modal.parentElement) {
-            modal.remove();
-        }
-    }, 6000);
+
+  document.body.appendChild(modal);
+
+  // Remove on background click
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) modal.remove();
+  });
+
+  // Auto remove after 6 seconds
+  setTimeout(() => {
+    if (modal.parentElement) {
+      modal.remove();
+    }
+  }, 6000);
 }
 
 // Add subtle interaction effects
-document.addEventListener('click', function(e) {
-    // Only create effect for non-interactive elements
-    if (e.target && e.target.closest && 
-        !e.target.closest('button') && 
-        !e.target.closest('.photo-card') && 
-        !e.target.closest('a')) {
-        
-        createClickRipple(e.clientX, e.clientY);
-    }
+document.addEventListener("click", function (e) {
+  // Only create effect for non-interactive elements
+  if (
+    e.target &&
+    e.target.closest &&
+    !e.target.closest("button") &&
+    !e.target.closest(".photo-card") &&
+    !e.target.closest("a")
+  ) {
+    createClickRipple(e.clientX, e.clientY);
+  }
 });
 
 function createClickRipple(x, y) {
-    const ripple = document.createElement('div');
-    ripple.className = 'fixed pointer-events-none z-30';
-    ripple.style.width = '20px';
-    ripple.style.height = '20px';
-    ripple.style.borderRadius = '50%';
-    ripple.style.background = 'radial-gradient(circle, rgba(184, 134, 11, 0.3) 0%, transparent 70%)';
-    ripple.style.left = x + 'px';
-    ripple.style.top = y + 'px';
-    ripple.style.transform = 'translate(-50%, -50%)';
-    
-    document.body.appendChild(ripple);
-    
-    const animation = ripple.animate([
-        { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
-        { transform: 'translate(-50%, -50%) scale(3)', opacity: 0 }
-    ], {
-        duration: 600,
-        easing: 'ease-out'
-    });
-    
-    animation.onfinish = () => {
-        ripple.remove();
-    };
+  const ripple = document.createElement("div");
+  ripple.className = "fixed pointer-events-none z-30";
+  ripple.style.width = "20px";
+  ripple.style.height = "20px";
+  ripple.style.borderRadius = "50%";
+  ripple.style.background =
+    "radial-gradient(circle, rgba(184, 134, 11, 0.3) 0%, transparent 70%)";
+  ripple.style.left = x + "px";
+  ripple.style.top = y + "px";
+  ripple.style.transform = "translate(-50%, -50%)";
+
+  document.body.appendChild(ripple);
+
+  const animation = ripple.animate(
+    [
+      { transform: "translate(-50%, -50%) scale(0)", opacity: 1 },
+      { transform: "translate(-50%, -50%) scale(3)", opacity: 0 },
+    ],
+    {
+      duration: 600,
+      easing: "ease-out",
+    }
+  );
+
+  animation.onfinish = () => {
+    ripple.remove();
+  };
 }
 
 // Responsive handling
 function handleResize() {
-    // Recalculate positions for mobile
-    if (window.innerWidth < 768) {
-        // Mobile adjustments
-        const musicControl = document.querySelector('.music-control');
-        if (musicControl) {
-            musicControl.style.bottom = '20px';
-            musicControl.style.right = '20px';
-        }
+  // Recalculate positions for mobile
+  if (window.innerWidth < 768) {
+    // Mobile adjustments
+    const musicControl = document.querySelector(".music-control");
+    if (musicControl) {
+      musicControl.style.bottom = "20px";
+      musicControl.style.right = "20px";
     }
+  }
 }
 
-window.addEventListener('resize', handleResize);
+window.addEventListener("resize", handleResize);
 handleResize(); // Call once on load
 
 // Interactive card effects
 function pulseCard(card) {
-    const hiddenMessage = card.querySelector('.hidden-message');
-    
-    // Pulse animation
-    card.style.transform = 'scale(1.02)';
-    card.style.boxShadow = '0 25px 50px rgba(184, 134, 11, 0.3)';
-    
-    // Show hidden message
+  const hiddenMessage = card.querySelector(".hidden-message");
+
+  // Pulse animation
+  card.style.transform = "scale(1.02)";
+  card.style.boxShadow = "0 25px 50px rgba(184, 134, 11, 0.3)";
+
+  // Show hidden message
+  if (hiddenMessage) {
+    hiddenMessage.style.opacity = "1";
+  }
+
+  // Create small sparkles around the card
+  createCardSparkles(card);
+
+  setTimeout(() => {
+    card.style.transform = "";
+    card.style.boxShadow = "";
     if (hiddenMessage) {
-        hiddenMessage.style.opacity = '1';
+      setTimeout(() => {
+        hiddenMessage.style.opacity = "0";
+      }, 2000);
     }
-    
-    // Create small sparkles around the card
-    createCardSparkles(card);
-    
-    setTimeout(() => {
-        card.style.transform = '';
-        card.style.boxShadow = '';
-        if (hiddenMessage) {
-            setTimeout(() => {
-                hiddenMessage.style.opacity = '0';
-            }, 2000);
-        }
-    }, 300);
+  }, 300);
 }
 
 function createCardSparkles(card) {
-    const rect = card.getBoundingClientRect();
-    const sparkleContainer = document.createElement('div');
-    sparkleContainer.className = 'fixed inset-0 pointer-events-none z-30';
-    document.body.appendChild(sparkleContainer);
-    
-    for (let i = 0; i < 8; i++) {
-        setTimeout(() => {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'absolute rounded-full';
-            sparkle.style.width = '4px';
-            sparkle.style.height = '4px';
-            sparkle.style.backgroundColor = '#daa520';
-            sparkle.style.boxShadow = '0 0 6px #daa520';
-            
-            const startX = rect.left + Math.random() * rect.width;
-            const startY = rect.top + Math.random() * rect.height;
-            sparkle.style.left = startX + 'px';
-            sparkle.style.top = startY + 'px';
-            
-            sparkleContainer.appendChild(sparkle);
-            
-            sparkle.animate([
-                { transform: 'scale(0)', opacity: 1 },
-                { transform: 'scale(1)', opacity: 1, offset: 0.2 },
-                { transform: 'scale(0)', opacity: 0 }
-            ], {
-                duration: 1000,
-                easing: 'ease-out'
-            }).onfinish = () => sparkle.remove();
-        }, i * 100);
-    }
-    
-    setTimeout(() => sparkleContainer.remove(), 2000);
+  const rect = card.getBoundingClientRect();
+  const sparkleContainer = document.createElement("div");
+  sparkleContainer.className = "fixed inset-0 pointer-events-none z-30";
+  document.body.appendChild(sparkleContainer);
+
+  for (let i = 0; i < 8; i++) {
+    setTimeout(() => {
+      const sparkle = document.createElement("div");
+      sparkle.className = "absolute rounded-full";
+      sparkle.style.width = "4px";
+      sparkle.style.height = "4px";
+      sparkle.style.backgroundColor = "#daa520";
+      sparkle.style.boxShadow = "0 0 6px #daa520";
+
+      const startX = rect.left + Math.random() * rect.width;
+      const startY = rect.top + Math.random() * rect.height;
+      sparkle.style.left = startX + "px";
+      sparkle.style.top = startY + "px";
+
+      sparkleContainer.appendChild(sparkle);
+
+      sparkle.animate(
+        [
+          { transform: "scale(0)", opacity: 1 },
+          { transform: "scale(1)", opacity: 1, offset: 0.2 },
+          { transform: "scale(0)", opacity: 0 },
+        ],
+        {
+          duration: 1000,
+          easing: "ease-out",
+        }
+      ).onfinish = () => sparkle.remove();
+    }, i * 100);
+  }
+
+  setTimeout(() => sparkleContainer.remove(), 2000);
 }
 
 // Love Note function
 function showLoveNote() {
-    if (document.querySelector('.love-note-modal')) return;
-    
-    const modal = document.createElement('div');
-    modal.className = 'love-note-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
-    
-    const noteMessages = [
-        "You make every day feel like a celebration 🎉",
-        "Your smile is my favorite sight in the world 😊",
-        "Thank you for being the most amazing person I know 💕",
-        "Every moment with you is a treasure 💎",
-        "You are my sunshine on cloudy days ☀️",
-        "Your laugh is the most beautiful sound 🎵"
-    ];
-    
-    const randomMessage = noteMessages[Math.floor(Math.random() * noteMessages.length)];
-    
-    modal.innerHTML = `
+  if (document.querySelector(".love-note-modal")) return;
+
+  const modal = document.createElement("div");
+  modal.className =
+    "love-note-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4";
+
+  const noteMessages = [
+    "You make every day feel like a celebration 🎉",
+    "Your smile is my favorite sight in the world 😊",
+    "Thank you for being the most amazing person I know 💕",
+    "Every moment with you is a treasure 💎",
+    "You are my sunshine on cloudy days ☀️",
+    "Your laugh is the most beautiful sound 🎵",
+  ];
+
+  const randomMessage =
+    noteMessages[Math.floor(Math.random() * noteMessages.length)];
+
+  modal.innerHTML = `
         <div class="glass rounded-3xl p-8 max-w-md mx-auto text-center transform scale-0" style="animation: popIn 0.5s ease forwards;">
             <div class="text-6xl mb-4">💌</div>
             <h3 class="serif-elegant text-2xl text-elegant font-semibold mb-6">A Little Note</h3>
@@ -503,77 +490,81 @@ function showLoveNote() {
             </button>
         </div>
     `;
-    
-    document.body.appendChild(modal);
-    
-    // Remove on background click
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) modal.remove();
-    });
+
+  document.body.appendChild(modal);
+
+  // Remove on background click
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) modal.remove();
+  });
 }
 
 // Heart Rain function
 function createHeartRain() {
-    if (document.querySelector('.heart-rain-container')) return;
-    
-    const rainContainer = document.createElement('div');
-    rainContainer.className = 'heart-rain-container fixed inset-0 pointer-events-none z-40';
-    document.body.appendChild(rainContainer);
-    
-    const hearts = ['💕', '💖', '💝', '💗', '💞', '💓'];
-    
-    // Create multiple waves of hearts
-    for (let wave = 0; wave < 3; wave++) {
-        setTimeout(() => {
-            for (let i = 0; i < 15; i++) {
-                setTimeout(() => {
-                    createFallingHeart(rainContainer, hearts);
-                }, i * 200);
-            }
-        }, wave * 1000);
-    }
-    
+  if (document.querySelector(".heart-rain-container")) return;
+
+  const rainContainer = document.createElement("div");
+  rainContainer.className =
+    "heart-rain-container fixed inset-0 pointer-events-none z-40";
+  document.body.appendChild(rainContainer);
+
+  const hearts = ["💕", "💖", "💝", "💗", "💞", "💓"];
+
+  // Create multiple waves of hearts
+  for (let wave = 0; wave < 3; wave++) {
     setTimeout(() => {
-        if (rainContainer.parentNode) {
-            rainContainer.remove();
-        }
-    }, 5000);
+      for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+          createFallingHeart(rainContainer, hearts);
+        }, i * 200);
+      }
+    }, wave * 1000);
+  }
+
+  setTimeout(() => {
+    if (rainContainer.parentNode) {
+      rainContainer.remove();
+    }
+  }, 5000);
 }
 
 function createFallingHeart(container, hearts) {
-    const heart = document.createElement('div');
-    heart.className = 'absolute text-2xl pointer-events-none';
-    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-    heart.style.left = Math.random() * window.innerWidth + 'px';
-    heart.style.top = '-50px';
-    heart.style.opacity = '0.8';
-    
-    container.appendChild(heart);
-    
-    const fallDistance = window.innerHeight + 100;
-    const duration = 3000 + Math.random() * 2000;
-    
-    heart.animate([
-        { 
-            transform: 'translateY(0) rotate(0deg)',
-            opacity: 0.8
-        },
-        { 
-            transform: `translateY(${fallDistance}px) rotate(360deg)`,
-            opacity: 0
-        }
-    ], {
-        duration: duration,
-        easing: 'linear'
-    }).onfinish = () => {
-        if (heart.parentNode) {
-            heart.remove();
-        }
-    };
+  const heart = document.createElement("div");
+  heart.className = "absolute text-2xl pointer-events-none";
+  heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.top = "-50px";
+  heart.style.opacity = "0.8";
+
+  container.appendChild(heart);
+
+  const fallDistance = window.innerHeight + 100;
+  const duration = 3000 + Math.random() * 2000;
+
+  heart.animate(
+    [
+      {
+        transform: "translateY(0) rotate(0deg)",
+        opacity: 0.8,
+      },
+      {
+        transform: `translateY(${fallDistance}px) rotate(360deg)`,
+        opacity: 0,
+      },
+    ],
+    {
+      duration: duration,
+      easing: "linear",
+    }
+  ).onfinish = () => {
+    if (heart.parentNode) {
+      heart.remove();
+    }
+  };
 }
 
 // Add CSS for pop-in animation
-const style = document.createElement('style');
+const style = document.createElement("style");
 style.textContent = `
     @keyframes popIn {
         0% { transform: scale(0) rotate(-180deg); opacity: 0; }
@@ -589,26 +580,27 @@ document.head.appendChild(style);
 
 // Secret message reveal
 function revealSecretMessage() {
-    const secretDiv = document.getElementById('secretMessage');
-    if (secretDiv) {
-        secretDiv.classList.remove('hidden');
-        secretDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        
-        // Add sparkle effect
-        setTimeout(() => {
-            createSparklesBurst(secretDiv);
-        }, 500);
-    }
+  const secretDiv = document.getElementById("secretMessage");
+  if (secretDiv) {
+    secretDiv.classList.remove("hidden");
+    secretDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    // Add sparkle effect
+    setTimeout(() => {
+      createSparklesBurst(secretDiv);
+    }, 500);
+  }
 }
 
 // Love Meter function
 function showLoveMeter() {
-    if (document.querySelector('.love-meter-modal')) return;
-    
-    const modal = document.createElement('div');
-    modal.className = 'love-meter-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
-    
-    modal.innerHTML = `
+  if (document.querySelector(".love-meter-modal")) return;
+
+  const modal = document.createElement("div");
+  modal.className =
+    "love-meter-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4";
+
+  modal.innerHTML = `
         <div class="glass rounded-3xl p-8 max-w-md mx-auto text-center transform scale-0" style="animation: popIn 0.5s ease forwards;">
             <div class="text-6xl mb-4">💖</div>
             <h3 class="serif-elegant text-2xl text-elegant font-semibold mb-6">Love Meter</h3>
@@ -627,57 +619,62 @@ function showLoveMeter() {
             </button>
         </div>
     `;
-    
-    document.body.appendChild(modal);
-    
-    // Animate love meter
-    setTimeout(() => {
-        const bar = document.getElementById('loveMeterBar');
-        const result = document.getElementById('loveResult');
-        if (bar) {
-            bar.style.width = '100%';
-            setTimeout(() => {
-                bar.style.width = '150%'; // Overflow effect
-                if (result) {
-                    result.classList.remove('hidden');
-                }
-            }, 3000);
+
+  document.body.appendChild(modal);
+
+  // Animate love meter
+  setTimeout(() => {
+    const bar = document.getElementById("loveMeterBar");
+    const result = document.getElementById("loveResult");
+    if (bar) {
+      bar.style.width = "100%";
+      setTimeout(() => {
+        bar.style.width = "150%"; // Overflow effect
+        if (result) {
+          result.classList.remove("hidden");
         }
-    }, 500);
-    
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) modal.remove();
-    });
+      }, 3000);
+    }
+  }, 500);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) modal.remove();
+  });
 }
 
 // Wish Tree function
 function createWishTree() {
-    if (document.querySelector('.wish-tree-modal')) return;
-    
-    const modal = document.createElement('div');
-    modal.className = 'wish-tree-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
-    
-    const wishes = [
-        "May all your dreams come true! ⭐",
-        "Wishing you endless happiness! 😊",
-        "May love surround you always! 💕",
-        "Here's to amazing adventures! 🌈",
-        "May you always find reasons to smile! 😄",
-        "Wishing you perfect health! 🌱",
-        "May magic follow you everywhere! ✨",
-        "Here's to making beautiful memories! 📸"
-    ];
-    
-    modal.innerHTML = `
+  if (document.querySelector(".wish-tree-modal")) return;
+
+  const modal = document.createElement("div");
+  modal.className =
+    "wish-tree-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4";
+
+  const wishes = [
+    "May all your dreams come true! ⭐",
+    "Wishing you endless happiness! 😊",
+    "May love surround you always! 💕",
+    "Here's to amazing adventures! 🌈",
+    "May you always find reasons to smile! 😄",
+    "Wishing you perfect health! 🌱",
+    "May magic follow you everywhere! ✨",
+    "Here's to making beautiful memories! 📸",
+  ];
+
+  modal.innerHTML = `
         <div class="glass rounded-3xl p-8 max-w-md mx-auto text-center transform scale-0" style="animation: popIn 0.5s ease forwards;">
             <div class="text-6xl mb-4">🌳</div>
             <h3 class="serif-elegant text-2xl text-elegant font-semibold mb-6">Birthday Wish Tree</h3>
             <p class="text-elegant mb-6">Click the leaves to reveal birthday wishes!</p>
             <div class="grid grid-cols-4 gap-2 mb-6">
-                ${wishes.map((wish, i) => `
+                ${wishes
+                  .map(
+                    (wish, i) => `
                     <div class="wish-leaf cursor-pointer text-2xl hover:scale-110 transition-transform" 
                          onclick="showWish('${wish}', this)" title="Click me!">🍃</div>
-                `).join('')}
+                `
+                  )
+                  .join("")}
             </div>
             <div id="currentWish" class="text-elegant italic mb-4 h-16 flex items-center justify-center"></div>
             <button onclick="this.closest('.wish-tree-modal').remove()" class="elegant-btn">
@@ -685,132 +682,150 @@ function createWishTree() {
             </button>
         </div>
     `;
-    
-    document.body.appendChild(modal);
-    
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) modal.remove();
-    });
+
+  document.body.appendChild(modal);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) modal.remove();
+  });
 }
 
 function showWish(wish, leaf) {
-    const wishDisplay = document.getElementById('currentWish');
-    if (wishDisplay) {
-        wishDisplay.textContent = wish;
-        leaf.textContent = '🌟';
-        leaf.style.transform = 'scale(1.2)';
-    }
+  const wishDisplay = document.getElementById("currentWish");
+  if (wishDisplay) {
+    wishDisplay.textContent = wish;
+    leaf.textContent = "🌟";
+    leaf.style.transform = "scale(1.2)";
+  }
 }
 
 // Star Field function
 function createStarField() {
-    if (document.querySelector('.star-field-container')) return;
-    
-    // Find the button that triggered this
-    const starButton = document.querySelector('button[onclick="createStarField()"]');
-    
-    // Disable button temporarily to prevent multiple clicks
-    if (starButton) {
-        starButton.disabled = true;
-        starButton.style.opacity = '0.7';
-        starButton.style.transform = 'scale(0.95)';
-    }
-    
-    const starContainer = document.createElement('div');
-    starContainer.className = 'star-field-container fixed inset-0 pointer-events-none z-40';
-    document.body.appendChild(starContainer);
-    
-    // Create constellation pattern
-    for (let i = 0; i < 30; i++) {
-        setTimeout(() => {
-            createTwinklingStar(starContainer);
-        }, i * 200);
-    }
-    
+  if (document.querySelector(".star-field-container")) return;
+
+  // Find the button that triggered this
+  const starButton = document.querySelector(
+    'button[onclick="createStarField()"]'
+  );
+
+  // Disable button temporarily to prevent multiple clicks
+  if (starButton) {
+    starButton.disabled = true;
+    starButton.style.opacity = "0.7";
+    starButton.style.transform = "scale(0.95)";
+  }
+
+  const starContainer = document.createElement("div");
+  starContainer.className =
+    "star-field-container fixed inset-0 pointer-events-none z-40";
+  document.body.appendChild(starContainer);
+
+  // Create constellation pattern
+  for (let i = 0; i < 30; i++) {
     setTimeout(() => {
-        if (starContainer.parentNode) {
-            starContainer.remove();
-        }
-        
-        // Re-enable button and reset its style
-        if (starButton) {
-            starButton.disabled = false;
-            starButton.style.opacity = '';
-            starButton.style.transform = '';
-        }
-    }, 8000);
+      createTwinklingStar(starContainer);
+    }, i * 200);
+  }
+
+  setTimeout(() => {
+    if (starContainer.parentNode) {
+      starContainer.remove();
+    }
+
+    // Re-enable button and reset its style
+    if (starButton) {
+      starButton.disabled = false;
+      starButton.style.opacity = "";
+      starButton.style.transform = "";
+    }
+  }, 8000);
 }
 
 function createTwinklingStar(container) {
-    const star = document.createElement('div');
-    star.className = 'absolute text-xl pointer-events-none';
-    star.textContent = '⭐';
-    star.style.left = Math.random() * window.innerWidth + 'px';
-    star.style.top = Math.random() * window.innerHeight + 'px';
-    star.style.opacity = '0';
-    
-    container.appendChild(star);
-    
-    // Twinkling animation
-    star.animate([
-        { opacity: 0, transform: 'scale(0) rotate(0deg)' },
-        { opacity: 1, transform: 'scale(1) rotate(180deg)', offset: 0.3 },
-        { opacity: 0.8, transform: 'scale(1.2) rotate(360deg)', offset: 0.7 },
-        { opacity: 0, transform: 'scale(0) rotate(540deg)' }
-    ], {
-        duration: 4000 + Math.random() * 2000,
-        easing: 'ease-in-out'
-    }).onfinish = () => {
-        if (star.parentNode) {
-            star.remove();
-        }
-    };
+  const star = document.createElement("div");
+  star.className = "absolute text-xl pointer-events-none";
+  star.textContent = "⭐";
+  star.style.left = Math.random() * window.innerWidth + "px";
+  star.style.top = Math.random() * window.innerHeight + "px";
+  star.style.opacity = "0";
+
+  container.appendChild(star);
+
+  // Twinkling animation
+  star.animate(
+    [
+      { opacity: 0, transform: "scale(0) rotate(0deg)" },
+      { opacity: 1, transform: "scale(1) rotate(180deg)", offset: 0.3 },
+      { opacity: 0.8, transform: "scale(1.2) rotate(360deg)", offset: 0.7 },
+      { opacity: 0, transform: "scale(0) rotate(540deg)" },
+    ],
+    {
+      duration: 4000 + Math.random() * 2000,
+      easing: "ease-in-out",
+    }
+  ).onfinish = () => {
+    if (star.parentNode) {
+      star.remove();
+    }
+  };
 }
 
 // Sparkles burst effect
 function createSparklesBurst(element) {
-    const rect = element.getBoundingClientRect();
-    const sparkleContainer = document.createElement('div');
-    sparkleContainer.className = 'fixed inset-0 pointer-events-none z-30';
-    document.body.appendChild(sparkleContainer);
-    
-    for (let i = 0; i < 15; i++) {
-        setTimeout(() => {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'absolute text-lg';
-            sparkle.textContent = '✨';
-            
-            const startX = rect.left + rect.width / 2;
-            const startY = rect.top + rect.height / 2;
-            sparkle.style.left = startX + 'px';
-            sparkle.style.top = startY + 'px';
-            sparkle.style.transform = 'translate(-50%, -50%)';
-            
-            sparkleContainer.appendChild(sparkle);
-            
-            const angle = (Math.PI * 2 * i) / 15;
-            const distance = 100 + Math.random() * 50;
-            const endX = startX + Math.cos(angle) * distance;
-            const endY = startY + Math.sin(angle) * distance;
-            
-            sparkle.animate([
-                { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
-                { transform: 'translate(-50%, -50%) scale(1)', opacity: 1, offset: 0.3 },
-                { transform: `translate(${endX - startX}px, ${endY - startY}px) scale(0)`, opacity: 0 }
-            ], {
-                duration: 2000 + Math.random() * 1000,
-                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-            }).onfinish = () => sparkle.remove();
-        }, i * 100);
-    }
-    
-    setTimeout(() => sparkleContainer.remove(), 4000);
+  const rect = element.getBoundingClientRect();
+  const sparkleContainer = document.createElement("div");
+  sparkleContainer.className = "fixed inset-0 pointer-events-none z-30";
+  document.body.appendChild(sparkleContainer);
+
+  for (let i = 0; i < 15; i++) {
+    setTimeout(() => {
+      const sparkle = document.createElement("div");
+      sparkle.className = "absolute text-lg";
+      sparkle.textContent = "✨";
+
+      const startX = rect.left + rect.width / 2;
+      const startY = rect.top + rect.height / 2;
+      sparkle.style.left = startX + "px";
+      sparkle.style.top = startY + "px";
+      sparkle.style.transform = "translate(-50%, -50%)";
+
+      sparkleContainer.appendChild(sparkle);
+
+      const angle = (Math.PI * 2 * i) / 15;
+      const distance = 100 + Math.random() * 50;
+      const endX = startX + Math.cos(angle) * distance;
+      const endY = startY + Math.sin(angle) * distance;
+
+      sparkle.animate(
+        [
+          { transform: "translate(-50%, -50%) scale(0)", opacity: 1 },
+          {
+            transform: "translate(-50%, -50%) scale(1)",
+            opacity: 1,
+            offset: 0.3,
+          },
+          {
+            transform: `translate(${endX - startX}px, ${
+              endY - startY
+            }px) scale(0)`,
+            opacity: 0,
+          },
+        ],
+        {
+          duration: 2000 + Math.random() * 1000,
+          easing: "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        }
+      ).onfinish = () => sparkle.remove();
+    }, i * 100);
+  }
+
+  setTimeout(() => sparkleContainer.remove(), 4000);
 }
 
 // Enhanced mobile touch handling
-if ('ontouchstart' in window) {
-    // Ensure smooth scrolling on mobile
-    document.documentElement.style.scrollBehavior = 'smooth';
+if ("ontouchstart" in window) {
+  // Ensure smooth scrolling on mobile
+  document.documentElement.style.scrollBehavior = "smooth";
 }
 
 // Birthday Cake Functionality
@@ -818,107 +833,113 @@ let extinguishedCandles = 0;
 const totalCandles = 5;
 
 // Initialize cake functionality
-document.addEventListener('DOMContentLoaded', function() {
-    setupCakeInteraction();
+document.addEventListener("DOMContentLoaded", function () {
+  setupCakeInteraction();
 });
 
 function setupCakeInteraction() {
-    const candles = document.querySelectorAll('.candle');
-    
-    candles.forEach(candle => {
-        candle.addEventListener('click', () => extinguishCandle(candle));
-        candle.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            extinguishCandle(candle);
-        });
+  const candles = document.querySelectorAll(".candle");
+
+  candles.forEach((candle) => {
+    candle.addEventListener("click", () => extinguishCandle(candle));
+    candle.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      extinguishCandle(candle);
     });
+  });
 }
 
 function extinguishCandle(candle) {
-    // Check if candle is already extinguished
-    if (candle.classList.contains('blown-out')) {
-        return;
-    }
-    
-    // Mark candle as blown out
-    candle.classList.add('blown-out');
-    const flame = candle.querySelector('.flame');
-    
-    if (flame) {
-        flame.classList.add('extinguished');
-    }
-    
-    // Update counter
-    extinguishedCandles++;
-    
-    // Create puff of smoke effect
-    createSmokeEffect(candle);
-    
-    // Check if all candles are extinguished
-    if (extinguishedCandles >= totalCandles) {
-        setTimeout(() => {
-            triggerConfettiCelebration();
-        }, 1000);
-    }
+  // Check if candle is already extinguished
+  if (candle.classList.contains("blown-out")) {
+    return;
+  }
+
+  // Mark candle as blown out
+  candle.classList.add("blown-out");
+  const flame = candle.querySelector(".flame");
+
+  if (flame) {
+    flame.classList.add("extinguished");
+  }
+
+  // Update counter
+  extinguishedCandles++;
+
+  // Create puff of smoke effect
+  createSmokeEffect(candle);
+
+  // Check if all candles are extinguished
+  if (extinguishedCandles >= totalCandles) {
+    setTimeout(() => {
+      triggerConfettiCelebration();
+    }, 1000);
+  }
 }
 
 function createSmokeEffect(candle) {
-    const rect = candle.getBoundingClientRect();
-    const smokeContainer = document.createElement('div');
-    smokeContainer.className = 'fixed inset-0 pointer-events-none z-50';
-    document.body.appendChild(smokeContainer);
-    
-    // Create multiple smoke particles
-    for (let i = 0; i < 8; i++) {
-        setTimeout(() => {
-            const smoke = document.createElement('div');
-            smoke.className = 'absolute rounded-full';
-            smoke.style.width = '6px';
-            smoke.style.height = '6px';
-            smoke.style.background = 'rgba(150, 150, 150, 0.7)';
-            smoke.style.left = rect.left + rect.width / 2 + 'px';
-            smoke.style.top = rect.top + 'px';
-            smoke.style.transform = 'translate(-50%, -50%)';
-            
-            smokeContainer.appendChild(smoke);
-            
-            // Animate smoke rising
-            smoke.animate([
-                { 
-                    transform: 'translate(-50%, -50%) scale(0)',
-                    opacity: 0.7
-                },
-                { 
-                    transform: 'translate(-50%, -50%) scale(1)',
-                    opacity: 0.5,
-                    offset: 0.3
-                },
-                { 
-                    transform: `translate(${-50 + (Math.random() - 0.5) * 60}%, ${-50 - 80}px) scale(2)`,
-                    opacity: 0
-                }
-            ], {
-                duration: 2000 + Math.random() * 1000,
-                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-            }).onfinish = () => smoke.remove();
-        }, i * 50);
-    }
-    
+  const rect = candle.getBoundingClientRect();
+  const smokeContainer = document.createElement("div");
+  smokeContainer.className = "fixed inset-0 pointer-events-none z-50";
+  document.body.appendChild(smokeContainer);
+
+  // Create multiple smoke particles
+  for (let i = 0; i < 8; i++) {
     setTimeout(() => {
-        if (smokeContainer.parentNode) {
-            smokeContainer.remove();
+      const smoke = document.createElement("div");
+      smoke.className = "absolute rounded-full";
+      smoke.style.width = "6px";
+      smoke.style.height = "6px";
+      smoke.style.background = "rgba(150, 150, 150, 0.7)";
+      smoke.style.left = rect.left + rect.width / 2 + "px";
+      smoke.style.top = rect.top + "px";
+      smoke.style.transform = "translate(-50%, -50%)";
+
+      smokeContainer.appendChild(smoke);
+
+      // Animate smoke rising
+      smoke.animate(
+        [
+          {
+            transform: "translate(-50%, -50%) scale(0)",
+            opacity: 0.7,
+          },
+          {
+            transform: "translate(-50%, -50%) scale(1)",
+            opacity: 0.5,
+            offset: 0.3,
+          },
+          {
+            transform: `translate(${-50 + (Math.random() - 0.5) * 60}%, ${
+              -50 - 80
+            }px) scale(2)`,
+            opacity: 0,
+          },
+        ],
+        {
+          duration: 2000 + Math.random() * 1000,
+          easing: "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
         }
-    }, 4000);
+      ).onfinish = () => smoke.remove();
+    }, i * 50);
+  }
+
+  setTimeout(() => {
+    if (smokeContainer.parentNode) {
+      smokeContainer.remove();
+    }
+  }, 4000);
 }
 
 // Memory Lane Scroller Functionality
 function expandMemory(card, title, fullText, year) {
-    if (document.querySelector('.memory-modal')) return;
-    
-    const modal = document.createElement('div');
-    modal.className = 'memory-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
-    
-    modal.innerHTML = `
+  if (document.querySelector(".memory-modal")) return;
+
+  const modal = document.createElement("div");
+  modal.className =
+    "memory-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4";
+
+  modal.innerHTML = `
         <div class="glass rounded-3xl p-8 max-w-2xl mx-auto text-center transform scale-0" style="animation: memoryExpand 0.6s ease forwards;">
             <div class="memory-year-large text-gold text-sm font-bold mb-4 px-4 py-2 rounded-full border border-gold inline-block">${year}</div>
             <h3 class="serif-display text-3xl font-bold text-elegant mb-6">${title}</h3>
@@ -936,27 +957,28 @@ function expandMemory(card, title, fullText, year) {
             </div>
         </div>
     `;
-    
-    document.body.appendChild(modal);
-    
-    // Remove on background click
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.remove();
-        }
-    });
-    
-    // Add sparkle effect around the card
-    createMemorySparkles(card);
+
+  document.body.appendChild(modal);
+
+  // Remove on background click
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.remove();
+    }
+  });
+
+  // Add sparkle effect around the card
+  createMemorySparkles(card);
 }
 
 function addNewMemory(card) {
-    if (document.querySelector('.add-memory-modal')) return;
-    
-    const modal = document.createElement('div');
-    modal.className = 'add-memory-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
-    
-    modal.innerHTML = `
+  if (document.querySelector(".add-memory-modal")) return;
+
+  const modal = document.createElement("div");
+  modal.className =
+    "add-memory-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4";
+
+  modal.innerHTML = `
         <div class="glass rounded-3xl p-8 max-w-md mx-auto text-center transform scale-0" style="animation: memoryExpand 0.6s ease forwards;">
             <div class="text-4xl mb-4">💝</div>
             <h3 class="serif-display text-2xl font-bold text-elegant mb-6">Add Your Memory</h3>
@@ -984,41 +1006,44 @@ function addNewMemory(card) {
             </div>
         </div>
     `;
-    
-    document.body.appendChild(modal);
-    
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) modal.remove();
-    });
-    
-    // Focus first input
-    setTimeout(() => {
-        modal.querySelector('#memoryTitle').focus();
-    }, 600);
+
+  document.body.appendChild(modal);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) modal.remove();
+  });
+
+  // Focus first input
+  setTimeout(() => {
+    modal.querySelector("#memoryTitle").focus();
+  }, 600);
 }
 
 function createCustomMemory() {
-    const title = document.getElementById('memoryTitle').value.trim();
-    const year = document.getElementById('memoryYear').value.trim();
-    const text = document.getElementById('memoryText').value.trim();
-    
-    if (!title || !year || !text) {
-        showNotification('Please fill in all fields to create your memory ✨');
-        return;
-    }
-    
-    // Close the modal
-    document.querySelector('.add-memory-modal').remove();
-    
-    // Create new memory card
-    const memoryTrack = document.querySelector('.memory-track');
-    const addCard = document.querySelector('.memory-track .memory-card:last-child');
-    
-    const newCard = document.createElement('div');
-    newCard.className = 'memory-card glass rounded-2xl p-6 mx-8 w-80 h-64 cursor-pointer hover-lift transition-all duration-300 shrink-0 relative';
-    newCard.onclick = () => expandMemory(newCard, title, text, year);
-    
-    newCard.innerHTML = `
+  const title = document.getElementById("memoryTitle").value.trim();
+  const year = document.getElementById("memoryYear").value.trim();
+  const text = document.getElementById("memoryText").value.trim();
+
+  if (!title || !year || !text) {
+    showNotification("Please fill in all fields to create your memory ✨");
+    return;
+  }
+
+  // Close the modal
+  document.querySelector(".add-memory-modal").remove();
+
+  // Create new memory card
+  const memoryTrack = document.querySelector(".memory-track");
+  const addCard = document.querySelector(
+    ".memory-track .memory-card:last-child"
+  );
+
+  const newCard = document.createElement("div");
+  newCard.className =
+    "memory-card glass rounded-2xl p-6 mx-8 w-80 h-64 cursor-pointer hover-lift transition-all duration-300 shrink-0 relative";
+  newCard.onclick = () => expandMemory(newCard, title, text, year);
+
+  newCard.innerHTML = `
         <div class="memory-year absolute -top-3 left-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold">${year}</div>
         <div class="w-12 h-12 rounded-full flex items-center justify-center mb-4" style="background: linear-gradient(135deg, #8b7cd8 0%, #ff6b9d 100%);">
             <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -1027,127 +1052,140 @@ function createCustomMemory() {
         </div>
         <h3 class="serif-elegant text-xl font-semibold text-elegant mb-2">${title}</h3>
         <p class="text-elegant text-sm leading-relaxed opacity-80 line-clamp-4">
-            ${text.substring(0, 100)}${text.length > 100 ? '...' : ''}
+            ${text.substring(0, 100)}${text.length > 100 ? "..." : ""}
         </p>
         <div class="memory-preview-hint absolute bottom-4 right-4 text-gold text-xs opacity-60">Click to expand</div>
     `;
-    
-    // Insert before the add card
-    memoryTrack.insertBefore(newCard, addCard);
-    
-    // Animate in
-    newCard.style.transform = 'scale(0)';
-    newCard.style.opacity = '0';
-    setTimeout(() => {
-        newCard.style.transition = 'all 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
-        newCard.style.transform = 'scale(1)';
-        newCard.style.opacity = '1';
-    }, 100);
-    
-    // Scroll to show the new card
-    setTimeout(() => {
-        newCard.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-    }, 700);
-    
-    // Sparkle celebration
-    setTimeout(() => {
-        createMemorySparkles(newCard);
-    }, 800);
-    
-    showNotification('Your beautiful memory has been added! 💕');
+
+  // Insert before the add card
+  memoryTrack.insertBefore(newCard, addCard);
+
+  // Animate in
+  newCard.style.transform = "scale(0)";
+  newCard.style.opacity = "0";
+  setTimeout(() => {
+    newCard.style.transition = "all 0.6s cubic-bezier(0.23, 1, 0.32, 1)";
+    newCard.style.transform = "scale(1)";
+    newCard.style.opacity = "1";
+  }, 100);
+
+  // Scroll to show the new card
+  setTimeout(() => {
+    newCard.scrollIntoView({ behavior: "smooth", inline: "center" });
+  }, 700);
+
+  // Sparkle celebration
+  setTimeout(() => {
+    createMemorySparkles(newCard);
+  }, 800);
+
+  showNotification("Your beautiful memory has been added! 💕");
 }
 
 function createMemorySparkles(element) {
-    const rect = element.getBoundingClientRect();
-    const sparkleContainer = document.createElement('div');
-    sparkleContainer.className = 'fixed inset-0 pointer-events-none z-40';
-    document.body.appendChild(sparkleContainer);
-    
-    // Create sparkles around the memory card
-    for (let i = 0; i < 12; i++) {
-        setTimeout(() => {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'absolute text-lg';
-            sparkle.textContent = '✨';
-            
-            const startX = rect.left + rect.width / 2;
-            const startY = rect.top + rect.height / 2;
-            sparkle.style.left = startX + 'px';
-            sparkle.style.top = startY + 'px';
-            sparkle.style.transform = 'translate(-50%, -50%)';
-            
-            sparkleContainer.appendChild(sparkle);
-            
-            const angle = (Math.PI * 2 * i) / 12;
-            const distance = 80 + Math.random() * 40;
-            const endX = startX + Math.cos(angle) * distance;
-            const endY = startY + Math.sin(angle) * distance;
-            
-            sparkle.animate([
-                { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
-                { transform: 'translate(-50%, -50%) scale(1)', opacity: 1, offset: 0.3 },
-                { transform: `translate(${endX - startX}px, ${endY - startY}px) scale(0)`, opacity: 0 }
-            ], {
-                duration: 1500 + Math.random() * 500,
-                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-            }).onfinish = () => sparkle.remove();
-        }, i * 80);
-    }
-    
-    setTimeout(() => sparkleContainer.remove(), 3000);
+  const rect = element.getBoundingClientRect();
+  const sparkleContainer = document.createElement("div");
+  sparkleContainer.className = "fixed inset-0 pointer-events-none z-40";
+  document.body.appendChild(sparkleContainer);
+
+  // Create sparkles around the memory card
+  for (let i = 0; i < 12; i++) {
+    setTimeout(() => {
+      const sparkle = document.createElement("div");
+      sparkle.className = "absolute text-lg";
+      sparkle.textContent = "✨";
+
+      const startX = rect.left + rect.width / 2;
+      const startY = rect.top + rect.height / 2;
+      sparkle.style.left = startX + "px";
+      sparkle.style.top = startY + "px";
+      sparkle.style.transform = "translate(-50%, -50%)";
+
+      sparkleContainer.appendChild(sparkle);
+
+      const angle = (Math.PI * 2 * i) / 12;
+      const distance = 80 + Math.random() * 40;
+      const endX = startX + Math.cos(angle) * distance;
+      const endY = startY + Math.sin(angle) * distance;
+
+      sparkle.animate(
+        [
+          { transform: "translate(-50%, -50%) scale(0)", opacity: 1 },
+          {
+            transform: "translate(-50%, -50%) scale(1)",
+            opacity: 1,
+            offset: 0.3,
+          },
+          {
+            transform: `translate(${endX - startX}px, ${
+              endY - startY
+            }px) scale(0)`,
+            opacity: 0,
+          },
+        ],
+        {
+          duration: 1500 + Math.random() * 500,
+          easing: "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        }
+      ).onfinish = () => sparkle.remove();
+    }, i * 80);
+  }
+
+  setTimeout(() => sparkleContainer.remove(), 3000);
 }
 
 function addToFavorites(title, year) {
-    // Simple localStorage implementation
-    let favorites = JSON.parse(localStorage.getItem('memoryFavorites') || '[]');
-    const favorite = { title, year, timestamp: Date.now() };
-    
-    if (!favorites.some(f => f.title === title && f.year === year)) {
-        favorites.push(favorite);
-        localStorage.setItem('memoryFavorites', JSON.stringify(favorites));
-        showNotification('Added to your heart! 💕');
-    } else {
-        showNotification('Already in your heart! 💖');
-    }
+  // Simple localStorage implementation
+  let favorites = JSON.parse(localStorage.getItem("memoryFavorites") || "[]");
+  const favorite = { title, year, timestamp: Date.now() };
+
+  if (!favorites.some((f) => f.title === title && f.year === year)) {
+    favorites.push(favorite);
+    localStorage.setItem("memoryFavorites", JSON.stringify(favorites));
+    showNotification("Added to your heart! 💕");
+  } else {
+    showNotification("Already in your heart! 💖");
+  }
 }
 
 function showNotification(message) {
-    const notification = document.createElement('div');
-    notification.className = 'fixed top-8 right-8 glass rounded-2xl px-6 py-4 z-50 transform translate-x-full transition-all duration-500';
-    notification.innerHTML = `
+  const notification = document.createElement("div");
+  notification.className =
+    "fixed top-8 right-8 glass rounded-2xl px-6 py-4 z-50 transform translate-x-full transition-all duration-500";
+  notification.innerHTML = `
         <div class="flex items-center gap-3">
             <div class="text-lg">💫</div>
             <div class="text-elegant font-medium">${message}</div>
         </div>
     `;
-    
-    document.body.appendChild(notification);
-    
-    // Slide in
+
+  document.body.appendChild(notification);
+
+  // Slide in
+  setTimeout(() => {
+    notification.style.transform = "translateX(0)";
+  }, 100);
+
+  // Slide out and remove
+  setTimeout(() => {
+    notification.style.transform = "translateX(full)";
     setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Slide out and remove
-    setTimeout(() => {
-        notification.style.transform = 'translateX(full)';
-        setTimeout(() => {
-            notification.remove();
-        }, 500);
-    }, 3000);
+      notification.remove();
+    }, 500);
+  }, 3000);
 }
 
 // Memory Lane Image Upload Functionality
 function uploadMemoryImage(placeholder) {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.onchange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                placeholder.innerHTML = `
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "image/*";
+  input.onchange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        placeholder.innerHTML = `
                     <img src="${e.target.result}" 
                          alt="Memory" 
                          class="w-full h-full object-cover rounded-full">
@@ -1157,51 +1195,51 @@ function uploadMemoryImage(placeholder) {
                         </svg>
                     </div>
                 `;
-                placeholder.classList.add('relative', 'overflow-hidden', 'group');
-                
-                // Add sparkle effect
-                createMemorySparkles(placeholder);
-                showNotification('Memory photo added! ✨');
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-    input.click();
+        placeholder.classList.add("relative", "overflow-hidden", "group");
+
+        // Add sparkle effect
+        createMemorySparkles(placeholder);
+        showNotification("Memory photo added! ✨");
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  input.click();
 }
 
 // Initialize Memory Lane functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Set up parallax effect for memory lane
-    setTimeout(() => {
-        setupMemoryLaneParallax();
-    }, 1000);
-    
-    // Add smooth scrolling behavior to memory scroller
-    const memoryScroller = document.querySelector('.memory-scroller');
-    if (memoryScroller) {
-        memoryScroller.style.scrollBehavior = 'smooth';
-    }
-    
-    // Touch/swipe support for mobile
-    if ('ontouchstart' in window) {
-        let startX, scrollLeft;
-        
-        memoryScroller?.addEventListener('touchstart', e => {
-            startX = e.touches[0].pageX - memoryScroller.offsetLeft;
-            scrollLeft = memoryScroller.scrollLeft;
-        });
-        
-        memoryScroller?.addEventListener('touchmove', e => {
-            e.preventDefault();
-            const x = e.touches[0].pageX - memoryScroller.offsetLeft;
-            const walk = (x - startX) * 2; // Scroll speed
-            memoryScroller.scrollLeft = scrollLeft - walk;
-        });
-    }
+document.addEventListener("DOMContentLoaded", function () {
+  // Set up parallax effect for memory lane
+  setTimeout(() => {
+    setupMemoryLaneParallax();
+  }, 1000);
+
+  // Add smooth scrolling behavior to memory scroller
+  const memoryScroller = document.querySelector(".memory-scroller");
+  if (memoryScroller) {
+    memoryScroller.style.scrollBehavior = "smooth";
+  }
+
+  // Touch/swipe support for mobile
+  if ("ontouchstart" in window) {
+    let startX, scrollLeft;
+
+    memoryScroller?.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].pageX - memoryScroller.offsetLeft;
+      scrollLeft = memoryScroller.scrollLeft;
+    });
+
+    memoryScroller?.addEventListener("touchmove", (e) => {
+      e.preventDefault();
+      const x = e.touches[0].pageX - memoryScroller.offsetLeft;
+      const walk = (x - startX) * 2; // Scroll speed
+      memoryScroller.scrollLeft = scrollLeft - walk;
+    });
+  }
 });
 
 // Add CSS animation for memory expansion
-const memoryStyle = document.createElement('style');
+const memoryStyle = document.createElement("style");
 memoryStyle.textContent = `
     @keyframes memoryExpand {
         0% { 
@@ -1255,86 +1293,92 @@ document.head.appendChild(memoryStyle);
 
 // Confetti Celebration Function
 function triggerConfettiCelebration() {
-    // Prevent multiple confetti celebrations
-    if (document.querySelector('.confetti-container')) {
-        return;
-    }
-    
-    const confettiContainer = document.createElement('div');
-    confettiContainer.className = 'confetti-container';
-    document.body.appendChild(confettiContainer);
-    
-    // Create multiple waves of confetti
-    for (let wave = 0; wave < 4; wave++) {
-        setTimeout(() => {
-            createConfettiWave(confettiContainer, wave);
-        }, wave * 500);
-    }
-    
-    // Clean up confetti container
+  // Prevent multiple confetti celebrations
+  if (document.querySelector(".confetti-container")) {
+    return;
+  }
+
+  const confettiContainer = document.createElement("div");
+  confettiContainer.className = "confetti-container";
+  document.body.appendChild(confettiContainer);
+
+  // Create multiple waves of confetti
+  for (let wave = 0; wave < 4; wave++) {
     setTimeout(() => {
-        if (confettiContainer.parentNode) {
-            confettiContainer.remove();
-        }
-    }, 8000);
+      createConfettiWave(confettiContainer, wave);
+    }, wave * 500);
+  }
+
+  // Clean up confetti container
+  setTimeout(() => {
+    if (confettiContainer.parentNode) {
+      confettiContainer.remove();
+    }
+  }, 8000);
 }
 
 function createConfettiWave(container, waveIndex) {
-    const confettiCount = 50 + (waveIndex * 10); // More confetti in later waves
-    
-    for (let i = 0; i < confettiCount; i++) {
-        setTimeout(() => {
-            createConfettiPiece(container);
-        }, i * 50);
-    }
+  const confettiCount = 50 + waveIndex * 10; // More confetti in later waves
+
+  for (let i = 0; i < confettiCount; i++) {
+    setTimeout(() => {
+      createConfettiPiece(container);
+    }, i * 50);
+  }
 }
 
 function createConfettiPiece(container) {
-    const confetti = document.createElement('div');
-    confetti.className = 'confetti-piece';
-    
-    // Random confetti type
-    const types = ['confetti-square', 'confetti-circle', 'confetti-triangle'];
-    const randomType = types[Math.floor(Math.random() * types.length)];
-    confetti.classList.add(randomType);
-    
-    // Random position across the top of the screen
-    confetti.style.left = Math.random() * 100 + '%';
-    confetti.style.top = '-20px';
-    
-    // Random size
-    const size = Math.random() * 8 + 6;
-    if (randomType === 'confetti-triangle') {
-        confetti.style.borderLeftWidth = size / 2 + 'px';
-        confetti.style.borderRightWidth = size / 2 + 'px';
-        confetti.style.borderBottomWidth = size + 'px';
-    } else {
-        confetti.style.width = size + 'px';
-        confetti.style.height = size + 'px';
-    }
-    
-    container.appendChild(confetti);
-    
-    // Random fall animation
-    const fallDuration = 3000 + Math.random() * 2000;
-    const horizontalMovement = (Math.random() - 0.5) * 100;
-    
-    confetti.animate([
-        {
-            transform: 'translateY(-100px) translateX(0px) rotate(0deg)',
-            opacity: 1
-        },
-        {
-            transform: `translateY(${window.innerHeight + 100}px) translateX(${horizontalMovement}px) rotate(${360 + Math.random() * 360}deg)`,
-            opacity: 0
-        }
-    ], {
-        duration: fallDuration,
-        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-    }).onfinish = () => {
-        if (confetti.parentNode) {
-            confetti.remove();
-        }
-    };
-}
+  const confetti = document.createElement("div");
+  confetti.className = "confetti-piece";
 
+  // Random confetti type
+  const types = ["confetti-square", "confetti-circle", "confetti-triangle"];
+  const randomType = types[Math.floor(Math.random() * types.length)];
+  confetti.classList.add(randomType);
+
+  // Random position across the top of the screen
+  confetti.style.left = Math.random() * 100 + "%";
+  confetti.style.top = "-20px";
+
+  // Random size
+  const size = Math.random() * 8 + 6;
+  if (randomType === "confetti-triangle") {
+    confetti.style.borderLeftWidth = size / 2 + "px";
+    confetti.style.borderRightWidth = size / 2 + "px";
+    confetti.style.borderBottomWidth = size + "px";
+  } else {
+    confetti.style.width = size + "px";
+    confetti.style.height = size + "px";
+  }
+
+  container.appendChild(confetti);
+
+  // Random fall animation
+  const fallDuration = 3000 + Math.random() * 2000;
+  const horizontalMovement = (Math.random() - 0.5) * 100;
+
+  confetti.animate(
+    [
+      {
+        transform: "translateY(-100px) translateX(0px) rotate(0deg)",
+        opacity: 1,
+      },
+      {
+        transform: `translateY(${
+          window.innerHeight + 100
+        }px) translateX(${horizontalMovement}px) rotate(${
+          360 + Math.random() * 360
+        }deg)`,
+        opacity: 0,
+      },
+    ],
+    {
+      duration: fallDuration,
+      easing: "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+    }
+  ).onfinish = () => {
+    if (confetti.parentNode) {
+      confetti.remove();
+    }
+  };
+}
